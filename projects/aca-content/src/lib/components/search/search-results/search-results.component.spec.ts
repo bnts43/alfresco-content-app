@@ -271,12 +271,11 @@ describe('SearchComponent', () => {
     expect(queryBuilder.userQuery).toBe(`((cm:tag:"orange*"))`);
   });
 
-  it('should get initial saved search when url matches', fakeAsync(() => {
+  it('should get initial saved search when url matches', () => {
     route.queryParams = of({ q: encodeQuery({ name: 'test' }) });
     component.ngOnInit();
-    tick();
     expect(component.initialSavedSearch).toEqual({ name: 'test', encodedUrl: encodeQuery({ name: 'test' }), order: 0 });
-  }));
+  });
 
   it('should render a menu with 2 options when initial saved search is found', async () => {
     route.queryParams = of({ q: encodeQuery({ name: 'test' }) });
@@ -368,6 +367,18 @@ describe('SearchComponent', () => {
 
     expect(executeSpy).toHaveBeenCalledTimes(1);
   }));
+
+  it('should format userQuery when url parameters changed and userQuery is not contained by url', () => {
+    routerEvents.next(new NavigationStart(1, ''));
+    queryParams.next({ q: encodeQuery('') });
+    expect(queryBuilder.userQuery).toBe('((cm:name:"*"))');
+  });
+
+  it('should not format userQuery when url parameters changed when userQuery is already contained by url', () => {
+    routerEvents.next(new NavigationStart(1, ''));
+    queryParams.next({ q: encodeQuery({ userQuery: 'test' }) });
+    expect(queryBuilder.userQuery).toBe('(test)');
+  });
 
   testHeader(SearchResultsComponent, false);
 });
