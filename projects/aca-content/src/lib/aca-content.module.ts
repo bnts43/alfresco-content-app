@@ -69,6 +69,7 @@ import { SearchResultsRowComponent } from './components/search/search-results-ro
 import { BulkActionsDropdownComponent } from './components/bulk-actions-dropdown/bulk-actions-dropdown.component';
 import { AgentsButtonComponent } from './components/knowledge-retrieval/search-ai/agents-button/agents-button.component';
 import { SaveSearchSidenavComponent } from './components/search/search-save/sidenav/save-search-sidenav.component';
+import { IsFeatureSupportedInCurrentAcsPipe } from './pipes/is-feature-supported.pipe';
 
 @NgModule({
   imports: [ContentModule.forRoot(), AppStoreModule, HammerModule],
@@ -134,7 +135,7 @@ import { SaveSearchSidenavComponent } from './components/search/search-save/side
         isSmartFolder: rules.isSmartFolder,
         isMultiSelection: rules.isMultiselection,
         canPrintFile: rules.canPrintFile,
-        isSavedSearchAvailable: rules.isSavedSearchAvailable,
+        isPreferencesApiAvailable: rules.isPreferencesApiAvailable,
         isFolderInfoAvailable: rules.isFolderInfoAvailable,
         isBulkActionsAvailable: rules.isBulkActionsAvailable,
 
@@ -169,7 +170,8 @@ import { SaveSearchSidenavComponent } from './components/search/search-save/side
         'app.areCategoriesEnabled': rules.areCategoriesEnabled,
         'app.isSSOEnabled': rules.isSSOEnabled
       }
-    })
+    }),
+    IsFeatureSupportedInCurrentAcsPipe
   ]
 })
 export class ContentServiceExtensionModule {}
