@@ -27,7 +27,6 @@ import { SavedSearch } from '@alfresco/adf-content-services';
 import { TranslationService, UserPreferencesService, UserPreferenceValues } from '@alfresco/adf-core';
 import { NavBarLinkRef } from '@alfresco/adf-extensions';
 import { ExpandMenuComponent } from '../../../sidenav/components/expand-menu.component';
-import { AppService } from '@alfresco/aca-shared';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay } from 'rxjs/operators';
 import { SavedSearchesContextService } from '../../../../services/saved-searches-context.service';
@@ -40,7 +39,6 @@ import { SavedSearchesContextService } from '../../../../services/saved-searches
 })
 export class SaveSearchSidenavComponent implements OnInit {
   savedSearchesService = inject(SavedSearchesContextService);
-  appService = inject(AppService);
   translationService = inject(TranslationService);
   item: NavBarLinkRef;
 
@@ -64,12 +62,6 @@ export class SaveSearchSidenavComponent implements OnInit {
           this.item.title = this.translationService.instant('APP.BROWSE.SEARCH.SAVE_SEARCH.NAVBAR.TITLE', { number: this.savedSearchCount });
         }
       });
-  }
-
-  onActionClick(el: NavBarLinkRef): void {
-    if (el.id !== this.manageSearchesId) {
-      this.appService.appNavNarMode$.next('collapsed');
-    }
   }
 
   private createNavBarLinkRef(children: SavedSearch[]): NavBarLinkRef {
