@@ -22,7 +22,7 @@
  * from Hyland Software. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DestroyRef, Directive, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { DestroyRef, Directive, EventEmitter, HostListener, inject, Input, OnInit, Output } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -35,6 +35,9 @@ export class OutsideEventDirective implements OnInit {
   @Output()
   clickOutside: EventEmitter<void> = new EventEmitter();
 
+  @Input()
+  focusTargetSelector = '.adf-context-menu-source';
+
   private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit() {
@@ -44,6 +47,11 @@ export class OutsideEventDirective implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => this.clickOutside.next());
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  onEscapeKeydown() {
+    document.querySelector<HTMLElement>(this.focusTargetSelector)?.focus();
   }
 
   private findAncestor(el: Element): boolean {
