@@ -22,13 +22,13 @@
  * from Hyland Software. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { SearchResultsComponent } from './search-results.component';
 import { AppConfigService, NotificationService, TranslationService } from '@alfresco/adf-core';
 import { Store } from '@ngrx/store';
 import { NavigateToFolder } from '@alfresco/aca-shared/store';
 import { Pagination, SearchRequest } from '@alfresco/js-api';
-import { SearchQueryBuilderService } from '@alfresco/adf-content-services';
+import { FacetFieldBucket, SearchQueryBuilderService } from '@alfresco/adf-content-services';
 import { ActivatedRoute, Event, NavigationStart, Params, Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, Subject, throwError } from 'rxjs';
 import { AppTestingModule } from '../../../testing/app-testing.module';
@@ -60,9 +60,11 @@ describe('SearchComponent', () => {
   let showErrorSpy: jasmine.Spy<(message: string, action?: string, interpolateArgs?: any, showAction?: boolean) => MatSnackBarRef<any>>;
   let showInfoSpy: jasmine.Spy<(message: string, action?: string, interpolateArgs?: any, showAction?: boolean) => MatSnackBarRef<any>>;
   let loader: HarnessLoader;
+  let updatedSubjectMock: Subject<SearchRequest>;
 
   const editSavedSearchesSpy = jasmine.createSpy('editSavedSearch');
   const getSavedSearchButton = (): HTMLButtonElement => fixture.nativeElement.querySelector('.aca-content__save-search-action');
+  const getResetSearchButton = (): HTMLButtonElement => fixture.nativeElement.querySelector('.aca-content__reset-action');
 
   const encodeQuery = (query: any): string => {
     return Buffer.from(JSON.stringify(query)).toString('base64');
@@ -72,6 +74,7 @@ describe('SearchComponent', () => {
     params = new BehaviorSubject({ q: 'TYPE: "cm:folder" AND %28=cm: name: email OR cm: name: budget%29' });
     queryParams = new Subject();
     routerEvents = new Subject();
+    updatedSubjectMock = new Subject();
 
     const routerMock = jasmine.createSpyObj<Router>('Router', ['navigate'], {
       url: '/mock-search-url',
@@ -92,9 +95,7 @@ describe('SearchComponent', () => {
         {
           provide: SavedSearchesContextService,
           useValue: {
-            getSavedSearches: jasmine
-              .createSpy('getSavedSearches')
-              .and.returnValue(of([{ name: 'test', encodedUrl: encodeQuery({ name: 'test' }), order: 0 }])),
+            savedSearches$: of([{ name: 'test', encodedUrl: encodeQuery({ name: 'test' }), order: 0 }]),
             editSavedSearch: editSavedSearchesSpy
           }
         },
@@ -124,6 +125,8 @@ describe('SearchComponent', () => {
     translate = TestBed.inject(TranslationService);
     router = TestBed.inject(Router);
     route = TestBed.inject(ActivatedRoute);
+
+    queryBuilder.updated = updatedSubjectMock;
 
     const notificationService = TestBed.inject(NotificationService);
     showErrorSpy = spyOn(notificationService, 'showError');
@@ -257,12 +260,6 @@ describe('SearchComponent', () => {
     });
   });
 
-  it('should update the user query whenever configuration changed', () => {
-    component.searchedWord = 'orange';
-    queryBuilder.configUpdated.next({ 'app:fields': ['cm:tag'] } as any);
-    expect(queryBuilder.userQuery).toBe(`((cm:tag:"orange*"))`);
-  });
-
   it('should get initial saved search when url matches', () => {
     route.queryParams = of({ q: encodeQuery({ name: 'test' }) });
     component.ngOnInit();
@@ -370,6 +367,74 @@ describe('SearchComponent', () => {
     routerEvents.next(new NavigationStart(1, ''));
     queryParams.next({ q: encodeQuery({ userQuery: 'test' }) });
     expect(queryBuilder.userQuery).toBe('(test)');
+  });
+
+  it('should set loading to true in updated stream for non-nullish query', fakeAsync(() => {
+    spyOn(queryBuilder, 'execute').and.stub();
+
+    expect(component.isLoading).toBeFalse();
+
+    updatedSubjectMock.next(null);
+
+    tick();
+
+    expect(component.isLoading).toBeFalse();
+
+    updatedSubjectMock.next({} as SearchRequest);
+
+    tick();
+
+    expect(component.isLoading).toBeTrue();
+
+    flush();
+  }));
+
+  describe('reset button', () => {
+    it('should enable the reset button when there are queryFragments', fakeAsync(() => {
+      queryBuilder.queryFragmentsUpdate.next({ test: 'test-value' });
+
+      tick();
+
+      fixture.detectChanges();
+
+      const resetBtn = getResetSearchButton();
+
+      expect(resetBtn).toBeDefined();
+      expect(resetBtn.getAttribute('disabled')).toBeFalsy();
+
+      flush();
+    }));
+
+    it('should enable the reset button when there are userFacetBuckets', fakeAsync(() => {
+      queryBuilder.userFacetBucketsUpdate.next({ test: [{ label: 'test-value' }] as FacetFieldBucket[] });
+
+      tick();
+
+      fixture.detectChanges();
+
+      const resetBtn = getResetSearchButton();
+
+      expect(resetBtn).toBeDefined();
+      expect(resetBtn.getAttribute('disabled')).toBeFalsy();
+
+      flush();
+    }));
+
+    it('should disable the reset button when there are no filters applied', fakeAsync(() => {
+      queryBuilder.queryFragmentsUpdate.next({});
+      queryBuilder.userFacetBucketsUpdate.next({});
+
+      tick();
+
+      fixture.detectChanges();
+
+      const resetBtn = getResetSearchButton();
+
+      expect(resetBtn).toBeDefined();
+      expect(resetBtn.getAttribute('disabled')).toBeTruthy();
+
+      flush();
+    }));
   });
 
   testHeader(SearchResultsComponent, false);
