@@ -123,13 +123,16 @@ jobs:
 
   e2es-playwright:
     needs: [lint, build, unit-tests]
-    name: 'E2E Playwright - ${{ matrix.e2e-suites.name }}'
+    name: E2E | ${{ matrix.browser || 'chromium' }} | ${{ matrix.e2e-suites.name }} | Playwright
     runs-on: ubuntu-24.04
     env:
       NODE_OPTIONS: --dns-result-order=ipv4first
+      PLAYWRIGHT_BROWSER: ${{ matrix.browser }}
     strategy:
       fail-fast: false
       matrix:
+        # For scheduled runs, include all browsers; for PR runs, only Chromium
+        browser: ${{ github.event_name != 'pull_request' && fromJSON('["chrome", "firefox", "webkit", "msedge"]') || fromJSON('["chromium"]') }}
         e2e-suites:
           - name: "create-actions"
             id: 1
@@ -199,7 +202,7 @@ jobs:
         uses: Alfresco/alfresco-build-tools/.github/actions/kubectl-keep-nslogs@b51dfeef6bda4a506778050a1c0e53eed440598c # v11.0.1
         with:
           log_retention: 7
-          log_name_identifier: "logs-${{ matrix.e2e-suites.name }}"
+          log_name_identifier: "logs-${{ matrix.browser || 'chromium' }}-${{ matrix.e2e-suites.name }}"
 
       - name: Before install
         uses: ./.github/actions/before-install
@@ -217,15 +220,27 @@ jobs:
       - name: Before e2e
         uses: ./.github/actions/before-e2e
 
-      - name: Before playwright
+      - name: Before playwright (Chromium for PR)
+        if: ${{ github.event_name == 'pull_request' }}
         run: npm run ci:playwright:install
+
+      - name: Before playwright (all browsers)
+        if: ${{ github.event_name != 'pull_request' }}
+        run: npm run ci:playwright:install:all
+
+      - name: Install Playwright system dependencies
+        # Install system dependencies required for all browsers (especially WebKit on Linux)
+        if: ${{ github.event_name != 'pull_request' }}
+        run: npx playwright install-deps
 
       - name: Run e2e playwright
         uses: ./.github/actions/run-e2e-playwright
         with:
           options: "${{ matrix.e2e-suites.name }}"
-          artifact-name: ${{ matrix.e2e-suites.name }}
+          artifact-name: "${{ matrix.browser || 'chromium' }}-${{ matrix.e2e-suites.name }}"
           test-runner: playwright
+        env:
+          PLAYWRIGHT_BROWSER: ${{ matrix.browser || 'chromium' }}
 
       - name: Debug Ingress Controller Logs
         if: always() && steps.deploy-local-acs.outcome == 'success'
