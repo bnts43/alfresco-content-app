@@ -23,12 +23,18 @@
  */
 
 import { PlaywrightTestConfig, devices, chromium } from '@playwright/test';
+import { loadEnvFile } from 'node:process';
 import { timeouts } from '../utils';
 import { getReporter } from './report-portal.config';
 
 type LaunchOptions = Parameters<typeof chromium.launch>[0];
 
-require('@alfresco/adf-cli/tooling').dotenvConfig();
+try {
+  loadEnvFile();
+} catch (error) {
+  // .env file is optional, continue without it
+}
+
 const { env } = process;
 
 interface BrowserConfig {
