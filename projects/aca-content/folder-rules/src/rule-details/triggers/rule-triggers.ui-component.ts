@@ -23,7 +23,7 @@
  */
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Component, forwardRef, ViewEncapsulation } from '@angular/core';
+import { Component, forwardRef, Input, ViewEncapsulation } from '@angular/core';
 import { RuleTrigger } from '../../model/rule.model';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -33,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   imports: [CommonModule, TranslatePipe, MatCheckboxModule],
   selector: 'aca-rule-triggers',
   templateUrl: './rule-triggers.ui-component.html',
+  styleUrls: ['./rule-triggers.ui-component.scss'],
   encapsulation: ViewEncapsulation.None,
   host: { class: 'aca-rule-triggers' },
   providers: [
@@ -44,6 +45,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   ]
 })
 export class RuleTriggersUiComponent implements ControlValueAccessor {
+  @Input() ariaLabelledBy = 'rule-triggers-label';
+
   readonly triggerOptions: RuleTrigger[] = ['inbound', 'update', 'outbound'];
 
   public selectedTriggers: { [key: string]: boolean } = {
