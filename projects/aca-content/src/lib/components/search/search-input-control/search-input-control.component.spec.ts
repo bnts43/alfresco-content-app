@@ -25,13 +25,18 @@
 import { SearchInputControlComponent } from './search-input-control.component';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AppTestingModule } from '../../../testing/app-testing.module';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { of } from 'rxjs';
+import { UnitTestingUtils } from '@alfresco/adf-core';
+import { HarnessLoader } from '@angular/cdk/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 
 describe('SearchInputControlComponent', () => {
   let fixture: ComponentFixture<SearchInputControlComponent>;
   let component: SearchInputControlComponent;
+  let unitTestingUtils: UnitTestingUtils;
+  let loader: HarnessLoader;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [AppTestingModule, SearchInputControlComponent],
@@ -39,8 +44,18 @@ describe('SearchInputControlComponent', () => {
     });
     fixture = TestBed.createComponent(SearchInputControlComponent);
     component = fixture.componentInstance;
+    loader = TestbedHarnessEnvironment.loader(fixture);
+    unitTestingUtils = new UnitTestingUtils(fixture.debugElement, loader);
     fixture.detectChanges();
   });
+
+  /**
+   * Sets the input value of the search input control component.
+   */
+  function setInputValue(value: string) {
+    component.searchTerm = value;
+    fixture.detectChanges();
+  }
 
   it('should emit submit event if form is valid', () => {
     component.searchTerm = 'valid';
@@ -75,19 +90,27 @@ describe('SearchInputControlComponent', () => {
   });
 
   it('should clear searchTerm', () => {
-    component.searchTerm = 'c';
-    fixture.detectChanges();
+    setInputValue('c');
     component.clear();
     expect(component.searchTerm).toBe('');
   });
 
   it('should check if searchTerm has a length less than 2', () => {
-    component.searchTerm = 'd';
-    fixture.detectChanges();
+    setInputValue('d');
     expect(component.isTermTooShort()).toBe(true);
-    component.searchTerm = 'dd';
-    fixture.detectChanges();
+    setInputValue('dd');
     expect(component.isTermTooShort()).toBe(false);
+  });
+
+  it('should mark searchFieldFormControl as untouched on blur', async () => {
+    spyOn(component.searchFieldFormControl, 'markAsUntouched').and.callThrough();
+    const input = await unitTestingUtils.getMatInput();
+    await input.setValue('test');
+    expect(component.searchFieldFormControl.touched).toBeTrue();
+
+    await input.blur();
+    expect(component.searchFieldFormControl.markAsUntouched).toHaveBeenCalled();
+    expect(component.searchFieldFormControl.touched).toBeFalse();
   });
 
   describe('ngOnInit', () => {
@@ -127,5 +150,49 @@ describe('SearchInputControlComponent', () => {
       tick();
       expect(component.searchFieldFormControl.setValue).not.toHaveBeenCalled();
     }));
+  });
+
+  describe('validation error messages', () => {
+    beforeEach(() => {
+      spyOn(component.validationError, 'emit');
+    });
+
+    it('should emit correct validation error message for whitespace validator', () => {
+      setInputValue('   ');
+      expect(component.validationError.emit).toHaveBeenCalledWith('SEARCH.INPUT.WHITESPACE');
+    });
+
+    it('should emit correct validation error message for operators validator', () => {
+      setInputValue('AND word');
+      expect(component.validationError.emit).toHaveBeenCalledWith('SEARCH.INPUT.OPERATORS');
+    });
+
+    it('should emit correct validation error message for required validator', () => {
+      setInputValue('');
+      expect(component.validationError.emit).toHaveBeenCalledWith('SEARCH.INPUT.REQUIRED');
+    });
+
+    it('should update validation error when hasLibrariesConstraint changes from false to true with short search term', () => {
+      setInputValue('a');
+      expect(component.validationError.emit).toHaveBeenCalledWith('');
+
+      component.hasLibrariesConstraint = true;
+      component.ngOnChanges({
+        hasLibrariesConstraint: new SimpleChange(false, true, false)
+      });
+      expect(component.validationError.emit).toHaveBeenCalledWith('SEARCH.INPUT.MIN_LENGTH');
+    });
+
+    it('should clear validation error when hasLibrariesConstraint changes from true to false with short search term', () => {
+      component.hasLibrariesConstraint = true;
+      setInputValue('a');
+      expect(component.validationError.emit).toHaveBeenCalledWith('SEARCH.INPUT.MIN_LENGTH');
+
+      component.hasLibrariesConstraint = false;
+      component.ngOnChanges({
+        hasLibrariesConstraint: new SimpleChange(true, false, false)
+      });
+      expect(component.validationError.emit).toHaveBeenCalledWith('');
+    });
   });
 });
