@@ -156,7 +156,7 @@ describe('NodeEffects', () => {
       const node: any = {};
       store.dispatch(new PurgeDeletedNodesAction([node]));
 
-      expect(contentService.purgeDeletedNodes).toHaveBeenCalledWith([node]);
+      expect(contentService.purgeDeletedNodes).toHaveBeenCalledWith([node], undefined);
     });
 
     it('should purge nodes from the active selection', fakeAsync(() => {
@@ -167,8 +167,8 @@ describe('NodeEffects', () => {
 
       tick(100);
 
-      store.dispatch(new PurgeDeletedNodesAction(null));
-      expect(contentService.purgeDeletedNodes).toHaveBeenCalledWith([node]);
+      store.dispatch(new PurgeDeletedNodesAction([node], { focusedElementOnCloseSelector: '.test-selector' }));
+      expect(contentService.purgeDeletedNodes).toHaveBeenCalledWith([node], '.test-selector');
     }));
 
     it('should do nothing if invoking purge with no data', () => {
@@ -187,7 +187,7 @@ describe('NodeEffects', () => {
       const node: any = {};
       store.dispatch(new RestoreDeletedNodesAction([node]));
 
-      expect(contentService.restoreDeletedNodes).toHaveBeenCalledWith([node]);
+      expect(contentService.restoreDeletedNodes).toHaveBeenCalledWith([node], undefined);
     });
 
     it('should restore deleted nodes from the active selection', fakeAsync(() => {
@@ -198,8 +198,8 @@ describe('NodeEffects', () => {
 
       tick(100);
 
-      store.dispatch(new RestoreDeletedNodesAction(null));
-      expect(contentService.restoreDeletedNodes).toHaveBeenCalledWith([node]);
+      store.dispatch(new RestoreDeletedNodesAction(null, { focusedElementOnCloseSelector: '.test-selector' }));
+      expect(contentService.restoreDeletedNodes).toHaveBeenCalledWith([node], '.test-selector');
     }));
 
     it('should do nothing if invoking restore with no data', () => {
@@ -220,7 +220,7 @@ describe('NodeEffects', () => {
 
       expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({ ...new DeleteNodesAction([node], true) }));
       expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({ ...new ShowLoaderAction(true) }));
-      expect(contentService.deleteNodes).toHaveBeenCalledWith([node], true);
+      expect(contentService.deleteNodes).toHaveBeenCalledWith([node], true, undefined);
     });
 
     it('should delete nodes from the active selection', fakeAsync(() => {
@@ -231,11 +231,13 @@ describe('NodeEffects', () => {
 
       tick(100);
 
-      store.dispatch(new DeleteNodesAction(null));
+      store.dispatch(new DeleteNodesAction(null, true, { focusedElementOnCloseSelector: '.test-selector' }));
 
-      expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({ ...new DeleteNodesAction(null, true) }));
+      expect(store.dispatch).toHaveBeenCalledWith(
+        jasmine.objectContaining({ ...new DeleteNodesAction(null, true, { focusedElementOnCloseSelector: '.test-selector' }) })
+      );
       expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({ ...new ShowLoaderAction(true) }));
-      expect(contentService.deleteNodes).toHaveBeenCalledWith([node], true);
+      expect(contentService.deleteNodes).toHaveBeenCalledWith([node], true, '.test-selector');
     }));
 
     it('should do nothing if invoking delete with no data', () => {
