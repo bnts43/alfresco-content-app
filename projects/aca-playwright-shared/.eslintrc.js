@@ -1,6 +1,6 @@
 const path = require('path');
 module.exports = {
-  extends: '../../.eslintrc.json',
+  extends: ['../../.eslintrc.json', '../../.eslintrc.e2e.json'],
   ignorePatterns: ['!**/*'],
   overrides: [
     {
@@ -10,7 +10,15 @@ module.exports = {
         createDefaultProgram: true
       },
       rules: {
-        'no-console': ['error', {'allow': ['info', 'log', 'warn', 'error'] }]
+        'no-console': ['error', {'allow': ['info', 'log', 'warn', 'error'] }],
+        'playwright/no-raw-locators': 'off'
+      }
+    },
+    {
+      files: ['*.js'],
+      rules: {
+        '@typescript-eslint/no-floating-promises': 'off',
+        '@typescript-eslint/no-misused-promises': 'off'
       }
     }
   ]
