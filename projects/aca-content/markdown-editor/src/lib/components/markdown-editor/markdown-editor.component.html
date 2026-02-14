@@ -1,0 +1,59 @@
+<div class="aca-markdown-editor">
+  <mat-toolbar class="aca-markdown-editor__toolbar">
+    <button mat-icon-button (click)="insertMarkdown('**', '**')" matTooltip="Bold (Ctrl+B)">
+      <mat-icon>format_bold</mat-icon>
+    </button>
+    <button mat-icon-button (click)="insertMarkdown('*', '*')" matTooltip="Italic (Ctrl+I)">
+      <mat-icon>format_italic</mat-icon>
+    </button>
+    <button mat-icon-button (click)="insertMarkdown('# ')" matTooltip="Heading">
+      <mat-icon>title</mat-icon>
+    </button>
+    <button mat-icon-button (click)="insertMarkdown('[', '](url)')" matTooltip="Link (Ctrl+K)">
+      <mat-icon>link</mat-icon>
+    </button>
+    <button mat-icon-button (click)="insertMarkdown('`', '`')" matTooltip="Code">
+      <mat-icon>code</mat-icon>
+    </button>
+    <button mat-icon-button (click)="insertMarkdown('```\n', '\n```')" matTooltip="Code Block">
+      <mat-icon>integration_instructions</mat-icon>
+    </button>
+    <button mat-icon-button (click)="insertMarkdown('- ')" matTooltip="Bullet List">
+      <mat-icon>format_list_bulleted</mat-icon>
+    </button>
+    <button mat-icon-button (click)="insertMarkdown('1. ')" matTooltip="Numbered List">
+      <mat-icon>format_list_numbered</mat-icon>
+    </button>
+    <button mat-icon-button (click)="insertMarkdown('> ')" matTooltip="Blockquote">
+      <mat-icon>format_quote</mat-icon>
+    </button>
+    <button mat-icon-button (click)="insertMarkdown('---\n')" matTooltip="Horizontal Rule">
+      <mat-icon>horizontal_rule</mat-icon>
+    </button>
+
+    <span class="aca-markdown-editor__toolbar-spacer"></span>
+
+    <button mat-icon-button (click)="showPreview = !showPreview"
+            [matTooltip]="showPreview ? 'Hide Preview' : 'Show Preview'">
+      <mat-icon>{{ showPreview ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="aca-markdown-editor__content" [class.aca-markdown-editor__content--split]="showPreview">
+    <div class="aca-markdown-editor__editor-pane">
+      <textarea
+        #editorTextarea
+        class="aca-markdown-editor__textarea"
+        [(ngModel)]="content"
+        (ngModelChange)="onContentChange($event)"
+        (keydown)="onKeydown($event, editorTextarea)"
+        spellcheck="true"
+      ></textarea>
+    </div>
+    <div class="aca-markdown-editor__preview-pane" *ngIf="showPreview">
+      <div class="aca-markdown-editor__preview-content">
+        <markdown [data]="content"></markdown>
+      </div>
+    </div>
+  </div>
+</div>

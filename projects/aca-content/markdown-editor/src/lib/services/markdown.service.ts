@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ContentApiService } from '@alfresco/aca-shared';
-import { AlfrescoApiService, NodesApiService } from '@alfresco/adf-content-services';
+import { AlfrescoApiService } from '@alfresco/adf-content-services';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Node, NodesApi } from '@alfresco/js-api';
@@ -18,7 +18,6 @@ export class MarkdownService {
   constructor(
     private contentApi: ContentApiService,
     private apiService: AlfrescoApiService,
-    private nodesApiService: NodesApiService,
     private http: HttpClient
   ) {}
 
@@ -36,7 +35,6 @@ export class MarkdownService {
     ).pipe(
       map((entry) => {
         const node = entry.entry;
-        this.nodesApiService.nodeUpdated.next(node);
         return node;
       })
     );
