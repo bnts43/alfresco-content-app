@@ -1,0 +1,23 @@
+{
+  "MARKDOWN_EDITOR": {
+    "EDIT_ACTION": "Edit Markdown",
+    "SAVE_ACTION": "Save",
+    "CANCEL_ACTION": "Cancel",
+    "SAVE_DIALOG": {
+      "TITLE": "Save Markdown",
+      "VERSION_LABEL": "Version Type",
+      "MINOR_VERSION": "Minor version",
+      "MAJOR_VERSION": "Major version",
+      "COMMENT_LABEL": "Version comment",
+      "COMMENT_PLACEHOLDER": "Describe the changes made...",
+      "COMMENT_REQUIRED": "A version comment is required",
+      "SAVE_BUTTON": "Save",
+      "CANCEL_BUTTON": "Cancel"
+    },
+    "NOTIFICATIONS": {
+      "SAVE_SUCCESS": "Markdown saved successfully",
+      "SAVE_ERROR": "Failed to save Markdown file",
+      "UNSAVED_CHANGES": "You have unsaved changes. Discard them?"
+    }
+  }
+}

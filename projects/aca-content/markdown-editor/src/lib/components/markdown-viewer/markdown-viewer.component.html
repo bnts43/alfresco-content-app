@@ -1,0 +1,45 @@
+<div class="aca-markdown-viewer">
+  <div class="aca-markdown-viewer__actions" *ngIf="!editMode && canEdit">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="enterEditMode()"
+      [matTooltip]="'MARKDOWN_EDITOR.EDIT_ACTION' | translate"
+    >
+      <mat-icon>edit</mat-icon>
+      {{ 'MARKDOWN_EDITOR.EDIT_ACTION' | translate }}
+    </button>
+  </div>
+
+  <div class="aca-markdown-viewer__actions" *ngIf="editMode">
+    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="saving">
+      <mat-icon>save</mat-icon>
+      {{ 'MARKDOWN_EDITOR.SAVE_ACTION' | translate }}
+    </button>
+    <button mat-button (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+      {{ 'MARKDOWN_EDITOR.CANCEL_ACTION' | translate }}
+    </button>
+  </div>
+
+  <!-- Preview Mode -->
+  <div class="aca-markdown-viewer__preview" *ngIf="!editMode && markdownContent !== null">
+    <markdown [data]="markdownContent"></markdown>
+  </div>
+
+  <!-- Loading -->
+   @if (loading) {
+     <div class="aca-markdown-viewer__loading">
+       <mat-icon>hourglass_empty</mat-icon>
+     </div>
+   } @else {
+
+     <!-- Edit Mode -->
+     <aca-markdown-editor
+       *ngIf="editMode"
+       [content]="editContent"
+       (contentChange)="onEditorContentChange($event)"
+     ></aca-markdown-editor>
+   }
+
+</div>

@@ -25,6 +25,7 @@
 import { EnvironmentProviders, NgModule, Provider } from '@angular/core';
 import { provideFolderRulesExtension } from '@alfresco/aca-content/folder-rules';
 import { provideAosExtension } from '@alfresco/aca-content/ms-office';
+import { provideMarkdownEditorExtension } from '@alfresco/aca-content/markdown-editor';
 import { DEV_MODE_TOKEN, PACKAGE_JSON, provideAboutExtension } from '@alfresco/aca-content/about';
 import { environment } from '../environments/environment';
 import packageJson from 'package.json';
@@ -33,6 +34,7 @@ export function provideApplicationExtensions(): (Provider | EnvironmentProviders
   return [
     ...provideAboutExtension(),
     ...provideAosExtension(),
+    ...provideMarkdownEditorExtension(),
     ...provideFolderRulesExtension(),
     { provide: PACKAGE_JSON, useValue: packageJson },
     { provide: DEV_MODE_TOKEN, useValue: !environment.production }

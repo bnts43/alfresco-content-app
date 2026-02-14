@@ -1,0 +1,21 @@
+{
+  "$schema": "../../../../extension.schema.json",
+  "$id": "b7e3f1a2-4c89-4d5e-a1f3-9b2c8d7e6f54",
+  "$version": "1.0.0",
+  "$name": "Markdown Editor",
+  "$description": "Extension that provides in-browser Markdown viewing and editing capabilities",
+  "$vendor": "Custom",
+  "$license": "LGPL-3.0",
+
+  "features": {
+    "viewer": {
+      "extensions": [
+        {
+          "id": "markdown.viewer",
+          "fileExtension": ["md", "markdown"],
+          "component": "markdown.components.markdown-viewer"
+        }
+      ]
+    }
+  }
+}

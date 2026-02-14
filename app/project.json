@@ -13,7 +13,7 @@
         "tsConfig": "app/tsconfig.app.json",
         "polyfills": "app/src/polyfills.ts",
         "preserveSymlinks": true,
-        "allowedCommonJsDependencies": ["minimatch", "cropperjs"],
+        "allowedCommonJsDependencies": ["minimatch", "cropperjs", "dompurify"],
         "stylePreprocessorOptions": {
           "includePaths": ["projects/aca-content/src/lib/ui", "node_modules", "node_modules/@alfresco/adf-core/lib"]
         },
@@ -79,6 +79,16 @@
             "glob": "**/*",
             "input": "projects/aca-content/folder-rules/assets",
             "output": "./assets/folder-rules"
+          },
+          {
+            "glob": "markdown-editor.plugin.json",
+            "input": "projects/aca-content/markdown-editor/assets",
+            "output": "./assets/plugins"
+          },
+          {
+            "glob": "**/*",
+            "input": "projects/aca-content/markdown-editor/assets",
+            "output": "./assets/markdown-editor"
           },
           {
             "glob": "**/*",
