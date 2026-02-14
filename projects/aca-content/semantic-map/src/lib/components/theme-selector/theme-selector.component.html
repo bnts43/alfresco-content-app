@@ -1,0 +1,30 @@
+<div class="theme-selector">
+  <div class="theme-selector-header">
+    <span class="label">Themes</span>
+    <div class="actions">
+      <button mat-button (click)="selectAll()" [disabled]="loading">Select all</button>
+      <button mat-button (click)="clearAll()" [disabled]="loading">Clear</button>
+    </div>
+  </div>
+
+  <div class="theme-chips" *ngIf="!loading; else loadingTpl">
+    <mat-chip-listbox multiple>
+      <mat-chip-option
+        *ngFor="let theme of themes"
+        [selected]="isSelected(theme.id)"
+        [style.--mdc-chip-elevated-container-color]="isSelected(theme.id) ? theme.color : '#e2e8f0'"
+        [style.--mdc-chip-label-text-color]="isSelected(theme.id) ? '#fff' : '#334155'"
+        (click)="toggleTheme(theme.id)">
+        {{ theme.nameFr || theme.name }}
+        <span class="doc-count">({{ theme.documentCount }})</span>
+      </mat-chip-option>
+    </mat-chip-listbox>
+  </div>
+
+  <ng-template #loadingTpl>
+    <div class="theme-chips-loading">
+      <mat-spinner diameter="20"></mat-spinner>
+      <span>Loading themes...</span>
+    </div>
+  </ng-template>
+</div>

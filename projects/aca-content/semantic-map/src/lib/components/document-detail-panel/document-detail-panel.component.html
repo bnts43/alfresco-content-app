@@ -1,0 +1,70 @@
+<div class="detail-panel" *ngIf="document" [@slideIn]>
+  <div class="panel-header">
+    <h3 class="panel-title">{{ document.name }}</h3>
+    <button mat-icon-button (click)="onClose()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="panel-body" *ngIf="!loading; else loadingTpl">
+    <div class="section path-section">
+      <span class="path">{{ document.path }}</span>
+    </div>
+
+    <div class="section themes-section">
+      <h4>Themes</h4>
+      <div class="theme-chips">
+        <mat-chip *ngFor="let theme of document.themes"
+                  [style.background-color]="theme.color"
+                  [style.color]="'#fff'">
+          {{ theme.nameFr || theme.name }}
+        </mat-chip>
+      </div>
+    </div>
+
+    <div class="section summary-section">
+      <h4>Scientific Summary</h4>
+      <p class="summary-text">{{ document.summaryFr }}</p>
+    </div>
+
+    <div class="section findings-section" *ngIf="document.keyFindings?.length">
+      <h4>Key Findings</h4>
+      <ul class="findings-list">
+        <li *ngFor="let finding of document.keyFindings">{{ finding }}</li>
+      </ul>
+    </div>
+
+    <div class="section similar-section" *ngIf="similarDocuments.length">
+      <h4>Similar Documents</h4>
+      <div class="similar-list">
+        <div class="similar-item"
+             *ngFor="let doc of similarDocuments"
+             (click)="onSelectSimilar(doc.alfrescoNodeId)">
+          <span class="similar-name">{{ doc.name }}</span>
+          <mat-progress-bar mode="determinate"
+                            [value]="getSimilarityPercent(doc.similarityScore)">
+          </mat-progress-bar>
+          <span class="similar-score">{{ getSimilarityPercent(doc.similarityScore) }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section actions-section">
+      <button mat-raised-button color="primary" (click)="onOpenInAlfresco()">
+        <mat-icon>open_in_new</mat-icon>
+        Open in Alfresco
+      </button>
+    </div>
+  </div>
+
+  <ng-template #loadingTpl>
+    <div class="panel-loading">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+  </ng-template>
+</div>
+
+<div class="empty-panel" *ngIf="!document">
+  <mat-icon class="empty-icon">touch_app</mat-icon>
+  <p>Select a document on the graph to view details</p>
+</div>

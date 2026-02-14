@@ -1,0 +1,35 @@
+<div class="semantic-map-layout">
+  <sem-theme-selector
+    [themes]="(themes$ | async) || []"
+    [selectedThemeIds]="(selectedThemeIds$ | async) || []"
+    [loading]="(loadingThemes$ | async) || false"
+    (selectionChanged)="onThemeSelectionChanged($event)">
+  </sem-theme-selector>
+
+  <div class="main-content">
+    <div class="graph-area" [class.with-panel]="(hasSelection$ | async)">
+      <div class="graph-loading-overlay" *ngIf="loadingGraph$ | async">
+        <mat-spinner diameter="40"></mat-spinner>
+        <span>Computing graph layout...</span>
+      </div>
+      <sem-sigma-graph
+        [nodes]="(nodes$ | async) || []"
+        [edges]="(edges$ | async) || []"
+        [selectedNodeId]="selectedNodeId"
+        (nodeClicked)="onNodeClicked($event)"
+        (nodeHovered)="onNodeHovered($event)">
+      </sem-sigma-graph>
+    </div>
+
+    <div class="detail-area" *ngIf="hasSelection$ | async" [@slideIn]>
+      <sem-document-detail-panel
+        [document]="(selectedDocument$ | async) || null"
+        [similarDocuments]="(similarDocuments$ | async) || []"
+        [loading]="(loadingDetail$ | async) || false"
+        (closed)="onPanelClosed()"
+        (documentSelected)="onDocumentSelected($event)"
+        (openInAlfresco)="onOpenInAlfresco($event)">
+      </sem-document-detail-panel>
+    </div>
+  </div>
+</div>

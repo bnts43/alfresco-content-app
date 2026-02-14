@@ -23,7 +23,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject, switchMap, take } from 'rxjs';
+import { first, Observable, ReplaySubject, switchMap, take } from 'rxjs';
 import { NodeEntry } from '@alfresco/js-api';
 import { SavedSearch, SavedSearchesLegacyService, SavedSearchesService, SavedSearchStrategy } from '@alfresco/adf-content-services';
 import { IsFeatureSupportedInCurrentAcsPipe } from '../pipes/is-feature-supported.pipe';
@@ -34,7 +34,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class SavedSearchesContextService implements SavedSearchStrategy {
   private readonly strategy$ = new ReplaySubject<SavedSearchStrategy>(1);
-  private strategy: SavedSearchStrategy;
+  private strategy: SavedSearchStrategy | null = null;
 
   constructor(
     private readonly legacyService: SavedSearchesLegacyService,
@@ -59,7 +59,14 @@ export class SavedSearchesContextService implements SavedSearchStrategy {
   }
 
   getSavedSearches(): Observable<SavedSearch[]> {
-    return this.strategy.getSavedSearches();
+    if (!this.strategy) {
+      return this.strategy$.asObservable().pipe(
+        first(),
+        switchMap((strat) => strat.getSavedSearches())
+      );
+    } else {
+      return this.strategy.getSavedSearches();
+    }
   }
 
   saveSearch(newSaveSearch: Pick<SavedSearch, 'name' | 'description' | 'encodedUrl'>): Observable<NodeEntry> {
