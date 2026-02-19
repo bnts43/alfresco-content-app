@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
-import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
-import { SemanticMapApiService } from './semantic-map-api.service';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import {
-  GraphData, Theme, DocumentDetail, SimilarDocument, GraphNode, GraphEdge
+  DocumentDetail,
+  GraphEdge,
+  GraphNode,
+  SimilarDocument,
+  Theme
 } from '../models/graph.model';
+import { SemanticMapApiService } from './semantic-map-api.service';
 
 export interface GraphState {
   themes: Theme[];
@@ -63,6 +67,7 @@ export class GraphDataService {
         this.loadGraphData(allIds);
       }),
       catchError(err => {
+        console.error(err);
         this.patchState({ loadingThemes: false, error: 'Failed to load themes' });
         return of(null);
       })
@@ -91,7 +96,7 @@ export class GraphDataService {
       this.api.getGraphData(ids, 0.65),
       this.api.recomputePositions(ids)
     ]).pipe(
-      switchMap(([graphData, _positions]) => {
+      switchMap(([_graphData, _positions]) => {
         // After recompute, re-fetch to get updated positions
         return this.api.getGraphData(ids, 0.65);
       }),
@@ -103,6 +108,7 @@ export class GraphDataService {
         });
       }),
       catchError(err => {
+        console.error(err);
         // Fallback: try just graph data without recompute
         return this.api.getGraphData(ids, 0.65).pipe(
           tap(graphData => {
@@ -113,6 +119,7 @@ export class GraphDataService {
             });
           }),
           catchError(innerErr => {
+            console.error(innerErr);
             this.patchState({ loadingGraph: false, error: 'Failed to load graph data' });
             return of(null);
           })
@@ -141,6 +148,7 @@ export class GraphDataService {
         });
       }),
       catchError(err => {
+        console.error(err);
         this.patchState({ loadingDetail: false, error: 'Failed to load document details' });
         return of(null);
       })

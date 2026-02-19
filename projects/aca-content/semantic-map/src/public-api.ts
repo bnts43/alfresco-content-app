@@ -1,4 +1,4 @@
-export * from './lib/semantic-map.module';
+export * from './lib/semantic-map.extension';
 export * from './lib/components/semantic-map-page/semantic-map-page.component';
 export * from './lib/components/sigma-graph/sigma-graph.component';
 export * from './lib/components/theme-selector/theme-selector.component';

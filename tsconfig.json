@@ -27,6 +27,7 @@
       "@alfresco/aca-content/markdown-editor": ["projects/aca-content/markdown-editor/src/public-api.ts"],
       "@alfresco/aca-content/ms-office": ["projects/aca-content/ms-office/src/public-api.ts"],
       "@alfresco/aca-content/preview": ["projects/aca-content/preview/src/public-api.ts"],
+      "@alfresco/aca-content/semantic-map": ["projects/aca-content/semantic-map/src/public-api.ts"],
       "@alfresco/aca-content/viewer": ["projects/aca-content/viewer/src/public-api.ts"],
       "@alfresco/aca-playwright-shared": ["projects/aca-playwright-shared/src/public-api.ts"],
       "@alfresco/aca-playwright-shared/*": ["projects/aca-playwright-shared/src/*/index.ts"],

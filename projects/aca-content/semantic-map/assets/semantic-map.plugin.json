@@ -1,8 +1,11 @@
 {
+  "$schema": "../../../../extension.schema.json",
   "$id": "semantic-map.extension",
   "$version": "1.0.0",
   "$name": "Semantic Map Extension",
   "$description": "Interactive Sigma.js graph visualization of document semantic proximity",
+  "$license": "LGPL-3.0",
+  "$vendor": "Hyland Software, Inc. and its affiliates",
 
   "routes": [
     {
@@ -13,13 +16,7 @@
       "data": {
         "title": "Semantic Map"
       },
-      "children": [
-        {
-          "id": "semantic-map.main",
-          "path": "",
-          "loadChildren": "./projects/semantic-map/src/lib/semantic-map.module#SemanticMapModule"
-        }
-      ]
+      "component": "semantic-map.main.component"
     }
   ],
 
@@ -32,19 +29,6 @@
         "title": "Semantic Map",
         "description": "Explore document semantic proximity",
         "route": "semantic-map",
-        "rules": {
-          "visible": "semantic-map.canShow"
-        }
-      }
-    ],
-
-    "sidebar": [
-      {
-        "id": "semantic-map.sidebar",
-        "order": 500,
-        "icon": "bubble_chart",
-        "title": "Semantic Map",
-        "component": "semantic-map.nav",
         "rules": {
           "visible": "semantic-map.canShow"
         }

@@ -1,8 +1,12 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Theme } from '../../models/graph.model';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'sem-theme-selector',
+  imports: [MatProgressSpinnerModule, CommonModule, MatChipsModule],
   templateUrl: './theme-selector.component.html',
   styleUrls: ['./theme-selector.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

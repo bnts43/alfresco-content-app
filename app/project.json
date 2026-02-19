@@ -71,6 +71,11 @@
             "output": "./assets/plugins"
           },
           {
+            "glob": "semantic-map.plugin.json",
+            "input": "projects/aca-content/semantic-map/assets",
+            "output": "./assets/plugins"
+          },
+          {
             "glob": "folder-rules.plugin.json",
             "input": "projects/aca-content/folder-rules/assets",
             "output": "./assets/plugins"

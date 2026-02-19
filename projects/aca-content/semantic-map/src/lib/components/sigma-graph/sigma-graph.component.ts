@@ -5,9 +5,12 @@ import {
 import Graph from 'graphology';
 import Sigma from 'sigma';
 import { GraphNode, GraphEdge } from '../../models/graph.model';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'sem-sigma-graph',
+  imports: [CommonModule, MatIconModule],
   templateUrl: './sigma-graph.component.html',
   styleUrls: ['./sigma-graph.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -26,9 +29,18 @@ export class SigmaGraphComponent implements AfterViewInit, OnDestroy, OnChanges 
   private sigma: Sigma | null = null;
   private graph: Graph | null = null;
   private hoveredNode: string | null = null;
+  private resizeObserver: ResizeObserver | null = null;
 
   ngAfterViewInit(): void {
-    this.initGraph();
+    // Defer init until the browser has laid out the container
+    requestAnimationFrame(() => {
+      if (this.container.nativeElement.offsetWidth > 0) {
+        this.initGraph();
+      } else {
+        // Fallback: wait for layout to complete
+        setTimeout(() => this.initGraph(), 100);
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,6 +53,8 @@ export class SigmaGraphComponent implements AfterViewInit, OnDestroy, OnChanges 
   }
 
   ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = null;
     this.sigma?.kill();
     this.sigma = null;
     this.graph = null;
@@ -109,6 +123,14 @@ export class SigmaGraphComponent implements AfterViewInit, OnDestroy, OnChanges 
     this.sigma.on('clickStage', () => {
       this.nodeClicked.emit('');
     });
+
+    // Resize Sigma when container dimensions change (e.g. detail panel open/close)
+    this.resizeObserver = new ResizeObserver(() => {
+      if (this.sigma) {
+        this.sigma.refresh();
+      }
+    });
+    this.resizeObserver.observe(this.container.nativeElement);
   }
 
   private updateGraphData(): void {

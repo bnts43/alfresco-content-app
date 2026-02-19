@@ -1,13 +1,19 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { DocumentDetail, GraphEdge, GraphNode, SimilarDocument, Theme } from '../../models/graph.model';
 import { GraphDataService, GraphState } from '../../services/graph-data.service';
-import { GraphNode, GraphEdge, Theme, DocumentDetail, SimilarDocument } from '../../models/graph.model';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DocumentDetailPanelComponent } from '../document-detail-panel/document-detail-panel.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SigmaGraphComponent } from '../sigma-graph/sigma-graph.component';
+import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 
 @Component({
   selector: 'sem-semantic-map-page',
   templateUrl: './semantic-map-page.component.html',
+  imports: [CommonModule, DocumentDetailPanelComponent, MatProgressSpinnerModule, SigmaGraphComponent, ThemeSelectorComponent],
   styleUrls: ['./semantic-map-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
@@ -83,7 +89,7 @@ export class SemanticMapPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  onNodeHovered(nodeId: string | null): void {
+  onNodeHovered(_nodeId: string | null): void {
     // Could add hover preview logic here
   }
 

@@ -1,8 +1,14 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentDetail, SimilarDocument } from '../../models/graph.model';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'sem-document-detail-panel',
+  imports: [CommonModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule, MatChipsModule],
   templateUrl: './document-detail-panel.component.html',
   styleUrls: ['./document-detail-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
