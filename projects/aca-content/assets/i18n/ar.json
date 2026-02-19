@@ -1,6 +1,6 @@
 {
     "APP": {
-        "COPYRIGHT": "© 2005-2025 Hyland Software, Inc. والشركات التابعة لها. جميع الحقوق محفوظة.",
+        "COPYRIGHT": "© 2005-2025 Hyland, Inc. والشركات التابعة لها. جميع الحقوق محفوظة.",
         "TITLE": "مساحة العمل",
         "ABOUT": {
             "VERSION": "الإصدار:",
@@ -52,19 +52,13 @@
             "LOCATION": "مكان",
             "TELEPHONE": "الهاتف",
             "MOBILE": "الجوال",
-            "LOGIN": "دخول",
-            "USERNAME": "اسم المستخدم",
             "EMAIL": "بريد إلكتروني",
-            "PASSWORD": "كلمة سر",
-            "OLD_PASSWORD": "كلمة السر القديمة",
-            "FORGOT_PASSWORD": "هل نسيت كلمة السر",
-            "NEW_PASSWORD": "كلمة سر جديدة",
-            "VERIFY_PASSWORD": "التحقق من كلمة السر",
             "COMPANY_DETAILS": "تفاصيل الشركة",
             "NAME": "الاسم",
             "ADDRESS": "العنوان",
             "POSTCODE": "الرمز البريدي",
-            "INVALID_INPUT": "إدخال غير صالح",
+            "INVALID_PHONE_FORMAT": "يرجى إدخال رقم هاتف صالح",
+            "INVALID_EMAIL_FORMAT": "يرجى إدخال عنوان بريد إلكتروني صالح",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "الذهاب إلى الملفات الشخصية"
         },
         "LOCKED_BY": "مغلق من قبل ",
@@ -433,6 +427,10 @@
                         "FAIL": "تعذر نقل {{ failed }}."
                     }
                 },
+                "NODE_CREATE": {
+                    "FILE_FROM_TEMPLATE_SUCCESS": "تم إنشاء الملف {{ name }} من القالب",
+                    "FOLDER_FROM_TEMPLATE_SUCCESS": "تم إنشاء المجلد {{ name }} من القالب"
+                },
                 "LIBRARY_DELETED": "تم حذف المكتبة",
                 "LEFT_LIBRARY": "لقد غادرت المكتبة",
                 "FAVORITE_NODE_ADDED": "تمت الإضافة {{ name }} إلى المفضلة",
@@ -472,6 +470,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "طي قائمة التنقل",
+            "COLLAPSE_NAVIGATION_ALT": "طي رمز قائمة التنقل",
             "OPTIONS_SETTINGS": "الخيارات والإعدادات",
             "MY_PROFILE": "ملف التعريف الخاص بي",
             "EXPAND_NAVIGATION": "قم بتوسيع قائمة التنقل",
@@ -583,6 +582,7 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
+            "LABEL": "الإجراءات الشاملة",
             "TITLE": "الإجراءات المجمعة ({{ count }} من العناصر)",
             "BULK_NOT_AVAILABLE": "الإجراءات المجمعة (غير متاحة)",
             "BULK_NOT_AVAILABLE_TOOLTIP": "لا يمكن استخدام الإجراءات المجمعة بدون نتائج البحث"
@@ -594,7 +594,8 @@
             "LIBRARIES": "مكتبات",
             "MIN_LENGTH": "يجب أن يحتوي إدخال البحث على حرفين أبجديين رقميين على الأقل.",
             "REQUIRED": "إدخال البحث مطلوب.",
-            "WHITESPACE": "لا يمكن لمدخلات البحث أن تكون مساحة بيضاء فقط."
+            "WHITESPACE": "لا يمكن لمدخلات البحث أن تكون مساحة بيضاء فقط.",
+            "OPERATORS": "لا يمكن أن يبدأ إدخال البحث أو ينتهي أو يتكون فقط من عوامل تشغيل"
         },
         "SORT": {
             "SORTING_OPTION": "صنف حسب",

@@ -1,6 +1,6 @@
 {
     "APP": {
-        "COPYRIGHT": "© 2005-2025 Hyland Software, Inc. et ses filiales. Tous droits réservés.",
+        "COPYRIGHT": "© 2005-2025 Hyland, Inc. et ses filiales. Tous droits réservés.",
         "TITLE": "Workspace",
         "ABOUT": {
             "VERSION": "Version :",
@@ -52,19 +52,13 @@
             "LOCATION": "Emplacement",
             "TELEPHONE": "Téléphone",
             "MOBILE": "Téléphone mobile",
-            "LOGIN": "Connexion",
-            "USERNAME": "Nom d'utilisateur",
             "EMAIL": "E-mail",
-            "PASSWORD": "Mot de passe",
-            "OLD_PASSWORD": "Ancien mot de passe",
-            "FORGOT_PASSWORD": "Mot de passe oublié",
-            "NEW_PASSWORD": "Nouveau mot de passe",
-            "VERIFY_PASSWORD": "Vérifier le mot de passe",
             "COMPANY_DETAILS": "Détails de la société",
             "NAME": "Nom",
             "ADDRESS": "Adresse",
             "POSTCODE": "Code postal",
-            "INVALID_INPUT": "Entrée non valide",
+            "INVALID_PHONE_FORMAT": "Veuillez saisir un numéro de téléphone valide",
+            "INVALID_EMAIL_FORMAT": "Veuillez saisir une adresse e‑mail valide",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "Accéder aux fichiers personnels"
         },
         "LOCKED_BY": "Verrouillé par: ",
@@ -433,6 +427,10 @@
                         "FAIL": "{{ failed }} n'a/n'ont pas pu être déplacé(s)."
                     }
                 },
+                "NODE_CREATE": {
+                    "FILE_FROM_TEMPLATE_SUCCESS": "Le fichier {{ name }} a été créé à partir du modèle",
+                    "FOLDER_FROM_TEMPLATE_SUCCESS": "Le dossier {{ name }} a été créé à partir du modèle"
+                },
                 "LIBRARY_DELETED": "Bibliothèque supprimée",
                 "LEFT_LIBRARY": "Vous avez quitté la bibliothèque",
                 "FAVORITE_NODE_ADDED": "{{ name }} ajouté aux favoris",
@@ -472,6 +470,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "Réduire le menu de navigation",
+            "COLLAPSE_NAVIGATION_ALT": "Icône de réduction du menu de navigation",
             "OPTIONS_SETTINGS": "Options et paramètres",
             "MY_PROFILE": "Mon profil",
             "EXPAND_NAVIGATION": "Agrandir le menu de navigation",
@@ -583,6 +582,7 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
+            "LABEL": "Actions groupées",
             "TITLE": "Actions en bloc ({{ count }} éléments)",
             "BULK_NOT_AVAILABLE": "Actions en bloc (non disponible)",
             "BULK_NOT_AVAILABLE_TOOLTIP": "Les actions en bloc ne peuvent pas être utilisées sans résultats de recherche"
@@ -594,7 +594,8 @@
             "LIBRARIES": "Bibliothèques",
             "MIN_LENGTH": "L'élément de recherche doit comporter au moins 2 caractères alphanumériques.",
             "REQUIRED": "La recherche est obligatoire.",
-            "WHITESPACE": "L'entrée de recherche ne peut pas être uniquement un espace."
+            "WHITESPACE": "L'entrée de recherche ne peut pas être uniquement un espace.",
+            "OPERATORS": "La saisie de recherche ne peut pas commencer, se terminer ou être composée uniquement d’opérateurs"
         },
         "SORT": {
             "SORTING_OPTION": "Trier par",

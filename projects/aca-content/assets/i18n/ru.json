@@ -1,6 +1,6 @@
 {
     "APP": {
-        "COPYRIGHT": "© 2005-2025 Hyland Software, Inc. и ее филиалы. Все права защищены.",
+        "COPYRIGHT": "© 2005-2025 Hyland, Inc. и ее филиалы. Все права защищены.",
         "TITLE": "Workspace",
         "ABOUT": {
             "VERSION": "Версия:",
@@ -52,19 +52,13 @@
             "LOCATION": "Местоположение",
             "TELEPHONE": "Телефон",
             "MOBILE": "Мобильный",
-            "LOGIN": "Войти",
-            "USERNAME": "Имя пользователя",
             "EMAIL": "Электронная почта",
-            "PASSWORD": "Пароль",
-            "OLD_PASSWORD": "Старый пароль",
-            "FORGOT_PASSWORD": "Забыли пароль",
-            "NEW_PASSWORD": "Новый пароль",
-            "VERIFY_PASSWORD": "Проверка пароля",
             "COMPANY_DETAILS": "Сведения о компании",
             "NAME": "Имя",
             "ADDRESS": "Адрес",
             "POSTCODE": "Почтовый индекс",
-            "INVALID_INPUT": "Недопустимый ввод",
+            "INVALID_PHONE_FORMAT": "Введите действительный номер телефона",
+            "INVALID_EMAIL_FORMAT": "Введите действительный адрес электронной почты",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "Перейти к личным файлам"
         },
         "LOCKED_BY": "Заблокировано: ",
@@ -433,6 +427,10 @@
                         "FAIL": "Не удалось переместить: {{ failed }}."
                     }
                 },
+                "NODE_CREATE": {
+                    "FILE_FROM_TEMPLATE_SUCCESS": "Файл {{ name }} создан из шаблона",
+                    "FOLDER_FROM_TEMPLATE_SUCCESS": "Папка {{ name }} создана из шаблона"
+                },
                 "LIBRARY_DELETED": "Библиотека удалена",
                 "LEFT_LIBRARY": "Вы уже покинули библиотеку",
                 "FAVORITE_NODE_ADDED": "Добавлено в избранное: {{ name }}",
@@ -472,6 +470,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "Свернуть меню навигации",
+            "COLLAPSE_NAVIGATION_ALT": "Значок свертывания меню навигации",
             "OPTIONS_SETTINGS": "Параметры и настройки",
             "MY_PROFILE": "Мой профиль",
             "EXPAND_NAVIGATION": "Развернуть меню навигации",
@@ -583,6 +582,7 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
+            "LABEL": "Массовые действия",
             "TITLE": "Массовые операции (объектов: {{ count }})",
             "BULK_NOT_AVAILABLE": "Массовые операции (недоступно)",
             "BULK_NOT_AVAILABLE_TOOLTIP": "Массовые операции невозможно использовать без результатов поиска"
@@ -594,7 +594,8 @@
             "LIBRARIES": "Библиотеки",
             "MIN_LENGTH": "Поисковый запрос должен содержать как минимум два буквенно-цифровых символа.",
             "REQUIRED": "Требуется ввести введенный поиск.",
-            "WHITESPACE": "Поисковый запрос не может быть только пробелов."
+            "WHITESPACE": "Поисковый запрос не может быть только пробелов.",
+            "OPERATORS": "Поисковый запрос не может начинаться, заканчиваться или состоять только из операторов"
         },
         "SORT": {
             "SORTING_OPTION": "Сортировать по",

@@ -7,6 +7,11 @@ on:
       url:
         description: 'Application URL'
         required: true
+        default: 'https://acadev.envalfresco.com'
+      playwright_e2e_host:
+        description: 'Playwright E2E host (e.g. https://acadev.envalfresco.com)'
+        required: false
+        default: 'http://localhost:4200'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -20,7 +25,7 @@ env:
   HR_USER_PASSWORD: ${{ secrets.HR_USER_PASSWORD }}
   SCREENSHOT_USERNAME: ${{ secrets.SCREENSHOT_USERNAME }}
   SCREENSHOT_PASSWORD: ${{ secrets.SCREENSHOT_PASSWORD}}
-  PLAYWRIGHT_E2E_HOST: ${{ inputs.url || secrets.PIPELINE_ENV_URL }}/aca/#/
+  PLAYWRIGHT_E2E_HOST: ${{ inputs.playwright_e2e_host || inputs.url || secrets.PLAYWRIGHT_E2E_HOST }}
   GH_BUILD_NUMBER: ${{ github.run_id }}
   REPORT_PORTAL_URL: ${{ secrets.REPORT_PORTAL_URL }}
   REPORT_PORTAL_TOKEN: ${{ secrets.REPORT_PORTAL_TOKEN }}
@@ -34,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 2
 
@@ -50,7 +55,7 @@ jobs:
 
       - name: dist cache
         if: ${{ success() }}
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: ./dist/content-ce
           key: cache-dist-${{ github.run_id }}
@@ -105,7 +110,7 @@ jobs:
             id: 19
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 2
 
@@ -118,7 +123,7 @@ jobs:
       - uses: ./.github/actions/before-install
       - run: npm ci
 
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v5
         id: cache
         with:
           path: ./dist/content-ce

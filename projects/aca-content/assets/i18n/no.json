@@ -1,6 +1,6 @@
 {
     "APP": {
-        "COPYRIGHT": "© 2005-2025 Hyland Software, Inc. og samarbeidspartnere. Med enerett.",
+        "COPYRIGHT": "© 2005-2025 Hyland, Inc. og samarbeidspartnere. Med enerett.",
         "TITLE": "Workspace",
         "ABOUT": {
             "VERSION": "Versjon:",
@@ -52,19 +52,13 @@
             "LOCATION": "Lokalisering",
             "TELEPHONE": "Telefon",
             "MOBILE": "Mobil",
-            "LOGIN": "Pålogging",
-            "USERNAME": "Brukernavn",
             "EMAIL": "E-post",
-            "PASSWORD": "Passord",
-            "OLD_PASSWORD": "Gammelt passord",
-            "FORGOT_PASSWORD": "Glemt passord",
-            "NEW_PASSWORD": "Nytt passord",
-            "VERIFY_PASSWORD": "Bekreft passord",
             "COMPANY_DETAILS": "Firmadetaljer",
             "NAME": "Navn",
             "ADDRESS": "Adresse",
             "POSTCODE": "Postnummer",
-            "INVALID_INPUT": "Ugyldig inndata",
+            "INVALID_PHONE_FORMAT": "Angi et gyldig telefonnummer",
+            "INVALID_EMAIL_FORMAT": "Angi en gyldig e‑postadresse",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "Gå til personlige filer"
         },
         "LOCKED_BY": "Låst av: ",
@@ -433,6 +427,10 @@
                         "FAIL": "{{ failed }} kunne ikke flyttes."
                     }
                 },
+                "NODE_CREATE": {
+                    "FILE_FROM_TEMPLATE_SUCCESS": "Filen {{ name }} ble opprettet fra malen",
+                    "FOLDER_FROM_TEMPLATE_SUCCESS": "Mappen {{ name }} ble opprettet fra malen"
+                },
                 "LIBRARY_DELETED": "Biblioteket er slettet",
                 "LEFT_LIBRARY": "Du har forlatt biblioteket",
                 "FAVORITE_NODE_ADDED": "Lagt {{ name }} til favoritter",
@@ -472,6 +470,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "Skjul navigasjonsmeny",
+            "COLLAPSE_NAVIGATION_ALT": "Ikon for å skjule navigasjonsmenyen",
             "OPTIONS_SETTINGS": "Alternativer og innstillinger",
             "MY_PROFILE": "Min profil",
             "EXPAND_NAVIGATION": "Utvid navigasjonsmeny",
@@ -583,6 +582,7 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
+            "LABEL": "Handlinger for flere",
             "TITLE": "Massehandlinger ({{ count }} elementer)",
             "BULK_NOT_AVAILABLE": "Massehandlinger (ikke tilgjengelig)",
             "BULK_NOT_AVAILABLE_TOOLTIP": "Massehandlinger kan ikke brukes uten søkeresultater"
@@ -594,7 +594,8 @@
             "LIBRARIES": "Biblioteker",
             "MIN_LENGTH": "Søketeksten må bestå av minst 2 alfanumeriske tegn.",
             "REQUIRED": "Søk i inndata er påkrevd.",
-            "WHITESPACE": "Søkeinndata kan ikke bare være i blanke rom."
+            "WHITESPACE": "Søkeinndata kan ikke bare være i blanke rom.",
+            "OPERATORS": "Søkefeltet kan ikke starte med, slutte med eller kun bestå av operatorer"
         },
         "SORT": {
             "SORTING_OPTION": "Sorter etter",

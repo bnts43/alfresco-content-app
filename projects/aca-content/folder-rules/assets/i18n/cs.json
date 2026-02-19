@@ -19,7 +19,13 @@
         "DESCRIPTION": "Popis",
         "WHEN": "Když",
         "PERFORM_ACTIONS": "Provádějte akce",
-        "OPTIONS": "Jiné možnosti"
+        "OPTIONS": "Jiné možnosti",
+        "FIELD": "Pole",
+        "COMPARATOR": "Komparátor",
+        "VALUE": "Hodnota",
+        "LOGIC_OPERATOR": "Logický operátor",
+        "GROUP_CONDITIONS": "Podmínky skupiny",
+        "CONDITIONS": "Podmínky"
       },
       "PLACEHOLDER": {
         "NAME": "Zadejte název pravidla",
@@ -31,7 +37,8 @@
       "ERROR": {
         "REQUIRED": "Toto pole je povinné",
         "RULE_COMPOSITE_CONDITION_INVALID": "Nejméně jedna skupina podmínek je prázdná",
-        "INSUFFICIENT_TRIGGERS_SELECTED": "Je požadován alespoň jeden spouštěč"
+        "INSUFFICIENT_TRIGGERS_SELECTED": "Je požadován alespoň jeden spouštěč",
+        "ACTION_REQUIRED": "Pole akce je povinné"
       },
       "TRIGGERS": {
         "INBOUND": "Položky jsou vytvořeny nebo vstupují do této složky",

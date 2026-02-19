@@ -57,7 +57,7 @@ import { forkJoin, Observable, of, zip } from 'rxjs';
 import { catchError, map, mergeMap, take, tap } from 'rxjs/operators';
 import { NodeActionsService } from './node-actions.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FolderInformationComponent } from '../dialogs/folder-details/folder-information.component';
+import { NodeInformationComponent } from '../dialogs/node-details/node-information.component';
 
 interface RestoredNode {
   status: number;
@@ -93,7 +93,8 @@ export class ContentManagementService {
   private readonly documentListService = inject(DocumentListService);
   private readonly createMenuButtonSelector = 'app-toolbar-menu button[id="app.toolbar.create"]';
 
-  addFavorite(nodes: Array<NodeEntry>) {
+  addFavorite(nodes: Array<NodeEntry>, focusedElementOnCloseSelector?: string) {
+    this.focusAfterClose(focusedElementOnCloseSelector);
     if (nodes && nodes.length > 0) {
       this.contentApi.addFavorite(nodes).subscribe(() => {
         const favoriteNodes = nodes.map((node) => {
@@ -112,7 +113,8 @@ export class ContentManagementService {
     }
   }
 
-  removeFavorite(nodes: Array<NodeEntry>) {
+  removeFavorite(nodes: Array<NodeEntry>, focusedElementOnCloseSelector?: string) {
+    this.focusAfterClose(focusedElementOnCloseSelector);
     if (nodes && nodes.length > 0) {
       this.contentApi.removeFavorite(nodes).subscribe({
         next: () => {
@@ -373,7 +375,7 @@ export class ContentManagementService {
     return this.permission.check(folderNode, ['create']);
   }
 
-  purgeDeletedNodes(nodes: NodeEntry[]) {
+  purgeDeletedNodes(nodes: NodeEntry[], focusedElementOnCloseSelector?: string) {
     if (!nodes || nodes.length === 0) {
       return;
     }
@@ -389,6 +391,7 @@ export class ContentManagementService {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      this.focusAfterClose(focusedElementOnCloseSelector);
       if (result === true) {
         const nodesToDelete: NodeInfo[] = nodes.map((node) => {
           const { name } = node.entry;
@@ -404,7 +407,7 @@ export class ContentManagementService {
     });
   }
 
-  restoreDeletedNodes(selection: NodeEntry[] = []) {
+  restoreDeletedNodes(selection: NodeEntry[] = [], focusedElementOnCloseSelector?: string) {
     if (!selection.length) {
       return;
     }
@@ -433,8 +436,11 @@ export class ContentManagementService {
         const remainingNodes = this.diff(selectedNodes, nodes.list.entries);
 
         if (!remainingNodes.length) {
+          this.focusAfterClose(focusedElementOnCloseSelector);
           this.showRestoreNotification(status);
-          this.documentListService.reload();
+          setTimeout(() => {
+            this.documentListService.reload();
+          }, 50);
         } else {
           this.restoreDeletedNodes(remainingNodes);
         }
@@ -689,7 +695,8 @@ export class ContentManagementService {
       );
   }
 
-  deleteNodes(items: NodeEntry[], allowUndo = true): void {
+  deleteNodes(items: NodeEntry[], allowUndo = true, focusedElementOnCloseSelector?: string): void {
+    this.focusAfterClose(focusedElementOnCloseSelector);
     const batch: Observable<DeletedNodeInfo>[] = [];
 
     items.forEach((node) => {
@@ -1161,15 +1168,15 @@ export class ContentManagementService {
     }
   }
 
-  showFolderInformation(node: NodeEntry) {
+  showNodeInformation(node: NodeEntry) {
     this.dialogRef.open(DialogComponent, {
       data: {
-        title: 'APP.FOLDER_INFO.TITLE',
-        confirmButtonTitle: 'APP.FOLDER_INFO.DONE',
+        title: 'APP.NODE_INFO.TITLE',
+        confirmButtonTitle: 'APP.NODE_INFO.DONE',
         isCancelButtonHidden: true,
         isCloseButtonHidden: false,
         dialogSize: DialogSize.Large,
-        contentComponent: FolderInformationComponent,
+        contentComponent: NodeInformationComponent,
         componentData: node.entry
       },
       width: '700px'

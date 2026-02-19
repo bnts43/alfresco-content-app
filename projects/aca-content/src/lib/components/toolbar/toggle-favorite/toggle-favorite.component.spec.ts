@@ -29,11 +29,14 @@ import { ExtensionService } from '@alfresco/adf-extensions';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { AppTestingModule } from '../../../testing/app-testing.module';
+import { UnitTestingUtils } from '@alfresco/adf-core';
 
 describe('ToggleFavoriteComponent', () => {
   let component: ToggleFavoriteComponent;
   let fixture;
   let router;
+  let unitTestingUtils: UnitTestingUtils;
+
   const mockRouter = {
     url: 'some-url'
   };
@@ -54,6 +57,7 @@ describe('ToggleFavoriteComponent', () => {
 
     fixture = TestBed.createComponent(ToggleFavoriteComponent);
     component = fixture.componentInstance;
+    unitTestingUtils = new UnitTestingUtils(fixture.debugElement);
     router = TestBed.inject(Router);
   });
 
@@ -66,7 +70,7 @@ describe('ToggleFavoriteComponent', () => {
   });
 
   it('should not dispatch reload if route is not specified', () => {
-    component.data = '["/reload_on_this_route"]';
+    component.data = { routes: ['/reload_on_this_route'] };
     router.url = '/somewhere_over_the_rainbow';
 
     fixture.detectChanges();
@@ -76,12 +80,24 @@ describe('ToggleFavoriteComponent', () => {
   });
 
   it('should dispatch reload if route is specified', () => {
-    component.data = '["/reload_on_this_route"]';
+    component.data = { routes: ['/reload_on_this_route'] };
     router.url = '/reload_on_this_route';
 
     fixture.detectChanges();
     component.onToggleEvent();
 
     expect(mockStore.dispatch).toHaveBeenCalled();
+  });
+
+  it('should focus element on toggle when focusAfterClosed is provided', () => {
+    const mockElement = jasmine.createSpyObj<HTMLElement>('HTMLElement', ['focus']);
+    spyOn(document, 'querySelector').and.returnValue(mockElement);
+
+    component.data = { routes: [], focusAfterClosed: '.adf-context-menu-source' };
+    const button = unitTestingUtils.getByCSS('button');
+    button.triggerEventHandler('toggle', new CustomEvent('toggle'));
+
+    expect(document.querySelector).toHaveBeenCalledWith('.adf-context-menu-source');
+    expect(mockElement.focus).toHaveBeenCalled();
   });
 });

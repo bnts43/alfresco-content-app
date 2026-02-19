@@ -19,7 +19,13 @@
         "DESCRIPTION": "Opis",
         "WHEN": "Kiedy",
         "PERFORM_ACTIONS": "Wykonaj czynności",
-        "OPTIONS": "Inne opcje"
+        "OPTIONS": "Inne opcje",
+        "FIELD": "Pole",
+        "COMPARATOR": "Komparator",
+        "VALUE": "Wartość",
+        "LOGIC_OPERATOR": "Operator logiczny",
+        "GROUP_CONDITIONS": "Warunki grupy",
+        "CONDITIONS": "Warunki"
       },
       "PLACEHOLDER": {
         "NAME": "Wprowadź nazwę reguły",
@@ -31,7 +37,8 @@
       "ERROR": {
         "REQUIRED": "To pole jest wymagane.",
         "RULE_COMPOSITE_CONDITION_INVALID": "Co najmniej jedna grupa warunków jest pusta",
-        "INSUFFICIENT_TRIGGERS_SELECTED": "Co najmniej jeden wyzwalacz jest wymagany"
+        "INSUFFICIENT_TRIGGERS_SELECTED": "Co najmniej jeden wyzwalacz jest wymagany",
+        "ACTION_REQUIRED": "Pole działania jest wymagane"
       },
       "TRIGGERS": {
         "INBOUND": "Pozycje są utworzone lub wejdź do tego folderu",

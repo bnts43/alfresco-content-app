@@ -28,23 +28,19 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { NavigateToParentFolder } from '@alfresco/aca-shared/store';
 import { ContentApiService } from '@alfresco/aca-shared';
-import { TranslationService } from '@alfresco/adf-core';
+import { DialogComponent, DialogSize, TranslationService } from '@alfresco/adf-core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { MatIcon } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { NodeLocationReferencesComponent } from '../../../dialogs/node-location-references/node-location-references.component';
 
 @Component({
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe, MatIcon, MatButtonModule],
   selector: 'aca-location-link',
-  template: `
-    <a
-      href=""
-      [title]="nodeLocation$ | async"
-      (click)="goToLocation()"
-      class="adf-datatable-cell-value"
-      [innerHTML]="displayText | async | translate"
-    >
-    </a>
-  `,
+  templateUrl: './location-link.component.html',
+  styleUrls: ['./location-link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   host: {
@@ -55,11 +51,13 @@ export class LocationLinkComponent implements OnInit {
   private store = inject(Store);
   private contentApi = inject(ContentApiService);
   private translationService = inject(TranslationService);
-
   private _path: PathInfo;
 
-  nodeLocation$ = new BehaviorSubject(this.translationService.instant('APP.BROWSE.SEARCH.UNKNOWN_LOCATION'));
+  private readonly dialogRef = inject(MatDialog);
+
+  nodeLocation$ = new BehaviorSubject('');
   displayText: Observable<string>;
+  hasPrimaryParentPath = false;
 
   @Input()
   context: any;
@@ -72,7 +70,8 @@ export class LocationLinkComponent implements OnInit {
     this.getTooltip(this._path);
   }
 
-  goToLocation() {
+  goToLocation(event: Event) {
+    event.preventDefault();
     if (this.context) {
       const node: NodeEntry = this.context.row.node;
       this.store.dispatch(new NavigateToParentFolder(node));
@@ -92,10 +91,29 @@ export class LocationLinkComponent implements OnInit {
             this.displayText = this.getDisplayText(path);
           }
           this._path = path;
+          this.hasPrimaryParentPath = true;
         } else {
-          this.displayText = of('APP.BROWSE.SEARCH.UNKNOWN_LOCATION');
+          this.hasPrimaryParentPath = false;
         }
       }
+    }
+  }
+
+  openAdditionalLocationReferencesDialog() {
+    if (this.context.row.node) {
+      this.dialogRef.open(DialogComponent, {
+        data: {
+          title: 'APP.ADDITIONAL_REFERENCES_DIALOG.TITLE',
+          confirmButtonTitle: 'APP.ADDITIONAL_REFERENCES_DIALOG.CLOSE',
+          isCancelButtonHidden: true,
+          isCloseButtonHidden: false,
+          dialogSize: DialogSize.Medium,
+          contentComponent: NodeLocationReferencesComponent,
+          componentData: this.context.row.node.entry
+        },
+        width: '600px',
+        restoreFocus: true
+      });
     }
   }
 

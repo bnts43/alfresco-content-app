@@ -1,6 +1,6 @@
 {
     "APP": {
-        "COPYRIGHT": "© 2005- 2025 Hyland Software, Inc. ja sen tytäryhtiöt. Kaikki oikeudet pidätetään.",
+        "COPYRIGHT": "© 2005- 2025 Hyland, Inc. ja sen tytäryhtiöt. Kaikki oikeudet pidätetään.",
         "TITLE": "Workspace",
         "ABOUT": {
             "VERSION": "Versio:",
@@ -52,19 +52,13 @@
             "LOCATION": "Sijainti",
             "TELEPHONE": "Kotipuhelinnumero",
             "MOBILE": "Matkapuhelinnumero",
-            "LOGIN": "Kirjaudu sisään",
-            "USERNAME": "Käyttäjänimi",
             "EMAIL": "Sähköposti",
-            "PASSWORD": "Salasana",
-            "OLD_PASSWORD": "Vanha salasana",
-            "FORGOT_PASSWORD": "Unohtuiko salasana?",
-            "NEW_PASSWORD": "Uusi salasana",
-            "VERIFY_PASSWORD": "Vahvista salasana",
             "COMPANY_DETAILS": "Yhtiön tiedot",
             "NAME": "Nimi",
             "ADDRESS": "Osoite",
             "POSTCODE": "Postinumero",
-            "INVALID_INPUT": "Syöte ei kelpaa",
+            "INVALID_PHONE_FORMAT": "Anna voimassa oleva puhelinnumero",
+            "INVALID_EMAIL_FORMAT": "Anna voimassa oleva sähköpostiosoite",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "Siirry henkilökohtaisiin tiedostoihin"
         },
         "LOCKED_BY": "Lukinnut: ",
@@ -433,6 +427,10 @@
                         "FAIL": "{{ failed }} kohteen siirtäminen ei onnistunut."
                     }
                 },
+                "NODE_CREATE": {
+                    "FILE_FROM_TEMPLATE_SUCCESS": "Tiedosto {{ name }} luotiin mallista",
+                    "FOLDER_FROM_TEMPLATE_SUCCESS": "Kansio {{ name }} luotiin mallista"
+                },
                 "LIBRARY_DELETED": "Kirjasto poistettiin",
                 "LEFT_LIBRARY": "Olet poistunut kirjastosta",
                 "FAVORITE_NODE_ADDED": "{{ name }} lisätty suosikkeihin",
@@ -472,6 +470,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "Kutista siirtymisvalikko",
+            "COLLAPSE_NAVIGATION_ALT": "Navigointivalikon supistuskuvake",
             "OPTIONS_SETTINGS": "Asetukset ja vaihtoehdot",
             "MY_PROFILE": "Oma profiili",
             "EXPAND_NAVIGATION": "Laajenna siirtymisvalikko",
@@ -583,6 +582,7 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
+            "LABEL": "Joukkotoiminnot",
             "TITLE": "Joukkotoiminnot ({{ count }} kohdetta)",
             "BULK_NOT_AVAILABLE": "Joukkotoiminnot (ei käytettävissä)",
             "BULK_NOT_AVAILABLE_TOOLTIP": "Joukkotoimintoja ei voida käyttää ilman hakutuloksia"
@@ -594,7 +594,8 @@
             "LIBRARIES": "Kirjastot",
             "MIN_LENGTH": "Hakuehdoissa täytyy olla vähintään kaksi aakkosnumeerista merkkiä.",
             "REQUIRED": "Hakusyöte on pakollinen.",
-            "WHITESPACE": "Hakusyöte ei voi olla vain valkoinen."
+            "WHITESPACE": "Hakusyöte ei voi olla vain valkoinen.",
+            "OPERATORS": "Hakusyöte ei voi alkaa tai päättyä operaattoreihin eikä koostua pelkästään niistä"
         },
         "SORT": {
             "SORTING_OPTION": "Järjestä",

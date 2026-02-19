@@ -4,7 +4,7 @@
   (menuOpened)="onMenuOpened()"
   (menuClosed)="syncInputValues()"
 >
-  <mat-form-field class="app-input-form-field" appearance="outline">
+  <mat-form-field class="app-input-form-field">
     <button class="aca-search-input--search-button" mat-icon-button matPrefix (click)="searchByOption()" [title]="'SEARCH.BUTTON.TOOLTIP' | translate">
       <mat-icon [attr.aria-label]="'SEARCH.BUTTON.ARIA-LABEL' | translate">search</mat-icon>
     </button>
@@ -45,7 +45,7 @@
         (validationError)="error = $event"
         [hasLibrariesConstraint]="hasLibrariesConstraint"
       />
-      <mat-error *ngIf="error" class="app-search-error">
+      <mat-error *ngIf="error" class="app-search-error" role="alert" aria-live="assertive">
         {{ error | translate }}
       </mat-error>
       <div id="search-options" class="app-search-options">

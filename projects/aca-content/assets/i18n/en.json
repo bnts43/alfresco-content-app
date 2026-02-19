@@ -52,19 +52,13 @@
             "LOCATION": "Location",
             "TELEPHONE": "Telephone",
             "MOBILE": "Mobile",
-            "LOGIN": "Login",
-            "USERNAME": "Username",
             "EMAIL": "Email",
-            "PASSWORD": "Password",
-            "OLD_PASSWORD": "Old Password",
-            "FORGOT_PASSWORD": "Forgot Password",
-            "NEW_PASSWORD": "New Password",
-            "VERIFY_PASSWORD": "Verify Password",
             "COMPANY_DETAILS": "Company details",
             "NAME": "Name",
             "ADDRESS": "Address",
             "POSTCODE": "Postcode",
-            "INVALID_INPUT": "Invalid Input",
+            "INVALID_PHONE_FORMAT": "Please enter a valid phone number",
+            "INVALID_EMAIL_FORMAT": "Please enter a valid email address",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "Go to Personal Files"
         },
         "LOCKED_BY": "Locked by: ",
@@ -273,7 +267,8 @@
                     "LOCATION": "Location",
                     "SIZE": "Size"
                 },
-                "UNKNOWN_LOCATION": "Unknown",
+                "UNKNOWN_LOCATION": "You do not have permission to view the location of this document.",
+                "VIEW_ADDITIONAL_LOCATIONS": "View additional references locations",
                 "NO_RESULTS": "Your search returned 0 results",
                 "EMPTY_SEARCH": "Search term required",
                 "NO_FILTER_RESULTS": "Your filter returned 0 results",
@@ -318,7 +313,7 @@
             "EDIT_OFFLINE_CANCEL": "Cancel Editing",
             "CHANGE_ASPECT": "Edit Aspects",
             "ADD_ASPECTS": "Add Aspects",
-            "FOLDER_INFO": "Folder Information"
+            "NODE_INFO": "Information"
         },
         "DIALOGS": {
             "CONFIRM_PURGE": {
@@ -433,6 +428,10 @@
                         "FAIL": "{{ failed }} couldn't be moved."
                     }
                 },
+                "NODE_CREATE": {
+                  "FILE_FROM_TEMPLATE_SUCCESS": "File {{ name }} created from template",
+                  "FOLDER_FROM_TEMPLATE_SUCCESS": "Folder {{ name }} created from template"
+                },
                 "LIBRARY_DELETED": "Library deleted",
                 "LEFT_LIBRARY": "You have left the library",
                 "FAVORITE_NODE_ADDED": "Added {{ name }} to favorites",
@@ -472,6 +471,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "Collapse navigation menu",
+            "COLLAPSE_NAVIGATION_ALT": "Collapse navigation menu icon",
             "OPTIONS_SETTINGS": "Options and settings",
             "MY_PROFILE": "My profile",
             "EXPAND_NAVIGATION": "Expand navigation menu",
@@ -481,19 +481,24 @@
             "CANCEL": "Cancel",
             "SAVE": "Save"
           },
-        "FOLDER_INFO": {
-          "ICON": "Folder Icon",
-          "TITLE": "Folder Information",
+        "NODE_INFO": {
+          "ICON": "Node Icon",
+          "TITLE": "Information",
           "SIZE" : "Size",
           "NUMBER_OF_FILES": "Number of files",
           "CALCULATING": "Calculating...",
-          "CALCULATED_SIZE_LARGE": "{{sizeInBytes}} bytes ({{sizeInLargeUnit}} {{unit}} on disk)",
-          "CALCULATED_SIZE_NORMAL": "{{sizeInBytes}} bytes",
           "LOCATION": "Location",
+          "REFERENCED": "Referenced",
           "CREATED": "Created",
           "MODIFIED": "Modified",
           "DONE": "Done",
           "ERROR": "Something went wrong, please close this dialog and try again"
+        },
+        "ADDITIONAL_REFERENCES_DIALOG": {
+          "TITLE": "Additional Reference Locations",
+          "NO_LOCATIONS": "{{ name }} is not referenced in any locations.",
+          "DESCRIPTION": "{{ name }} is currently referenced in these locations.",
+          "CLOSE": "Close"
         }
     },
     "NODE_SELECTOR": {
@@ -583,7 +588,8 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
-          "TITLE": "Bulk Actions ({{ count }} Items)",
+          "LABEL": "Bulk Actions",
+          "TITLE": "Select an action for all {{ count }} results",
           "BULK_NOT_AVAILABLE": "Bulk Actions (Not Available)",
           "BULK_NOT_AVAILABLE_TOOLTIP": "Bulk Actions cannot be used without search results"
         },
@@ -594,7 +600,8 @@
           "LIBRARIES": "Libraries",
           "MIN_LENGTH": "Search input must have at least 2 alphanumeric characters.",
           "REQUIRED": "Search input is required.",
-          "WHITESPACE": "Search input cannot be only whitespace."
+          "WHITESPACE": "Search input cannot be only whitespace.",
+          "OPERATORS": "Search input cannot begin with, end with or contain only operators."
         },
         "SORT": {
             "SORTING_OPTION": "Sort by",

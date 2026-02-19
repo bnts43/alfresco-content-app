@@ -1,6 +1,6 @@
 {
     "APP": {
-        "COPYRIGHT": "© 2005-2025 Hyland Software, Inc. e seus afiliados. Todos os direitos reservados.",
+        "COPYRIGHT": "© 2005-2025 Hyland, Inc. e seus afiliados. Todos os direitos reservados.",
         "TITLE": "Workspace",
         "ABOUT": {
             "VERSION": "Versão:",
@@ -52,19 +52,13 @@
             "LOCATION": "Localização",
             "TELEPHONE": "Telefone",
             "MOBILE": "Celular",
-            "LOGIN": "Logon",
-            "USERNAME": "Nome de usuário",
             "EMAIL": "E-mail",
-            "PASSWORD": "Senha",
-            "OLD_PASSWORD": "Senha antiga",
-            "FORGOT_PASSWORD": "Esqueci a senha",
-            "NEW_PASSWORD": "Nova senha",
-            "VERIFY_PASSWORD": "Verificar senha",
             "COMPANY_DETAILS": "Detalhes da empresa",
             "NAME": "Nome",
             "ADDRESS": "Endereço",
             "POSTCODE": "Código postal",
-            "INVALID_INPUT": "Entrada inválida",
+            "INVALID_PHONE_FORMAT": "Insira um número de telefone válido",
+            "INVALID_EMAIL_FORMAT": "Insira um endereço de e-mail válido",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "Ir para Arquivos Pessoais"
         },
         "LOCKED_BY": "Bloqueado por: ",
@@ -433,6 +427,10 @@
                         "FAIL": "Não foi possível mover {{ failed }}."
                     }
                 },
+                "NODE_CREATE": {
+                    "FILE_FROM_TEMPLATE_SUCCESS": "O arquivo {{ name }} foi criado a partir do modelo",
+                    "FOLDER_FROM_TEMPLATE_SUCCESS": "A pasta {{ name }} foi criada a partir do modelo"
+                },
                 "LIBRARY_DELETED": "Biblioteca apagada",
                 "LEFT_LIBRARY": "Você saiu da biblioteca",
                 "FAVORITE_NODE_ADDED": "{{ name }} foi adicionada aos favoritos",
@@ -472,6 +470,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "Recolher menu de navegação",
+            "COLLAPSE_NAVIGATION_ALT": "Ícone de recolher o menu de navegação",
             "OPTIONS_SETTINGS": "Opções e configurações",
             "MY_PROFILE": "Meu perfil",
             "EXPAND_NAVIGATION": "Expandir menu de navegação",
@@ -583,6 +582,7 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
+            "LABEL": "Ações em massa",
             "TITLE": "Ações em massa ({{ count }} itens)",
             "BULK_NOT_AVAILABLE": "Ações em massa (não disponíveis)",
             "BULK_NOT_AVAILABLE_TOOLTIP": "As ações em massa não podem ser usadas sem resultados de pesquis"
@@ -594,7 +594,8 @@
             "LIBRARIES": "Bibliotecas",
             "MIN_LENGTH": "O termo da pesquisa deve ter no mínimo 2 caracteres alfanuméricos.",
             "REQUIRED": "Campo de pesquisa é obrigatório",
-            "WHITESPACE": "Entrada de pesquisa não pode ser apenas espaço em branco."
+            "WHITESPACE": "Entrada de pesquisa não pode ser apenas espaço em branco.",
+            "OPERATORS": "A entrada de pesquisa não pode começar, terminar ou consistir apenas de operadores"
         },
         "SORT": {
             "SORTING_OPTION": "Classificar por",

@@ -14,6 +14,10 @@ inputs:
   quay_password:
     description: 'Quay password'
     required: true
+  acs_deployment_version:
+    description: 'ACS deployment version (defaults to latest)'
+    required: false
+    default: 'latest'
 
 runs:
   using: "composite"
@@ -36,7 +40,7 @@ runs:
         password: ${{ inputs.quay_password }}
 
     - name: Setup cluster
-      uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@v9.3.2
+      uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@v12.1.0
       with:
         ingress-nginx-ref: controller-v1.8.2
         ingress-creation-timeout: 180s
@@ -60,11 +64,56 @@ runs:
         helm repo add self https://alfresco.github.io/alfresco-helm-charts/
         helm repo add elastic https://helm.elastic.co/
 
-    - name: Checkout acs-deployment sources
-      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+    - name: Get latest ACS deployment version
+      id: get-acs-version
+      shell: bash
+      env:
+        ACS_VERSION_INPUT: ${{ inputs.acs_deployment_version }}
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        if [ "$ACS_VERSION_INPUT" = "latest" ]; then
+          max_retries=3
+          retry_count=0
+          latest_tag=""
+
+          while [ $retry_count -lt $max_retries ]; do
+            echo "Attempt $((retry_count + 1)) of $max_retries to fetch latest ACS deployment version..."
+            if [ -n "$GITHUB_TOKEN" ]; then
+              response=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/Alfresco/acs-deployment/releases/latest)
+            else
+              response=$(curl -s https://api.github.com/repos/Alfresco/acs-deployment/releases/latest)
+            fi
+
+            latest_tag=$(echo "$response" | jq -r .tag_name 2>/dev/null || echo "")
+            if [ "$latest_tag" != "null" ] && [ -n "$latest_tag" ]; then
+              echo "Successfully fetched latest ACS deployment version: $latest_tag"
+              echo "version=$latest_tag" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+
+            echo "Warning: Received invalid response (tag_name: $latest_tag)"
+            retry_count=$((retry_count + 1))
+
+            if [ $retry_count -lt $max_retries ]; then
+              sleep_time=$((2 ** retry_count))
+              echo "Retrying in $sleep_time seconds..."
+              sleep $sleep_time
+            fi
+          done
+          
+          echo "Error: Failed to fetch latest ACS deployment version after $max_retries attempts"
+          echo "Last response: $response"
+          exit 1
+        else
+          echo "Using specified ACS deployment version: $ACS_VERSION_INPUT"
+          echo "version=$ACS_VERSION_INPUT" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Checkout acs-deployment ${{ steps.get-acs-version.outputs.version }}
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       with:
         repository: Alfresco/acs-deployment
-        ref: v9.5.1
+        ref: ${{ steps.get-acs-version.outputs.version }}
         path: acs-deployment
 
     - name: Helm install
@@ -77,4 +126,4 @@ runs:
         --values .github/acs-deployment-values-override.yaml
 
     - name: Wait for pods to be ready
-      uses: Alfresco/alfresco-build-tools/.github/actions/kubectl-wait@v9.3.2
+      uses: Alfresco/alfresco-build-tools/.github/actions/kubectl-wait@v12.1.0

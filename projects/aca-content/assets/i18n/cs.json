@@ -1,6 +1,6 @@
 {
     "APP": {
-        "COPYRIGHT": "2005-2025 Hyland Software, Inc. a její přidružené společnosti. Všechna práva vyhrazena.",
+        "COPYRIGHT": "2005-2025 Hyland, Inc. a její přidružené společnosti. Všechna práva vyhrazena.",
         "TITLE": "Pracovní prostor",
         "ABOUT": {
             "VERSION": "Verze:",
@@ -52,19 +52,13 @@
             "LOCATION": "Umístění",
             "TELEPHONE": "Telefon",
             "MOBILE": "Mobil",
-            "LOGIN": "Přihlášení",
-            "USERNAME": "Uživatelské jméno",
             "EMAIL": "E-mail",
-            "PASSWORD": "Heslo",
-            "OLD_PASSWORD": "Staré heslo",
-            "FORGOT_PASSWORD": "Zapomenuté heslo",
-            "NEW_PASSWORD": "Nové heslo",
-            "VERIFY_PASSWORD": "Ověření hesla",
             "COMPANY_DETAILS": "Podrobnosti o společnosti",
             "NAME": "Název",
             "ADDRESS": "Adresa",
             "POSTCODE": "PSČ",
-            "INVALID_INPUT": "Neplatný vstup",
+            "INVALID_PHONE_FORMAT": "Zadejte platné telefonní číslo",
+            "INVALID_EMAIL_FORMAT": "Zadejte platnou e‑mailovou adresu",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "Přejít na osobní soubory"
         },
         "LOCKED_BY": "Uzamknul(a): ",
@@ -433,6 +427,10 @@
                         "FAIL": "Některé položky ({{ failed }}) nebylo možné přesunout."
                     }
                 },
+                "NODE_CREATE": {
+                    "FILE_FROM_TEMPLATE_SUCCESS": "Soubor {{ name }} byl vytvořen ze šablony",
+                    "FOLDER_FROM_TEMPLATE_SUCCESS": "Složka {{ name }} byla vytvořena ze šablony"
+                },
                 "LIBRARY_DELETED": "Knihovna odstraněna",
                 "LEFT_LIBRARY": "Opustili jste knihovnu",
                 "FAVORITE_NODE_ADDED": "Došlo k přidání {{ name }} do oblíbených",
@@ -472,6 +470,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "Sbalit navigační nabídku",
+            "COLLAPSE_NAVIGATION_ALT": "Sbalit ikonu navigační nabídky",
             "OPTIONS_SETTINGS": "Možnosti a nastavení",
             "MY_PROFILE": "Můj profil",
             "EXPAND_NAVIGATION": "Rozbalit navigační nabídku",
@@ -583,6 +582,7 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
+            "LABEL": "Hromadné akce",
             "TITLE": "Hromadné akce (počet položek: {{ count }})",
             "BULK_NOT_AVAILABLE": "Hromadné akce (nedostupné)",
             "BULK_NOT_AVAILABLE_TOOLTIP": "Hromadné akce nelze použít bez výsledků vyhledávání"
@@ -594,7 +594,8 @@
             "LIBRARIES": "Knihovny",
             "MIN_LENGTH": "Hledaný výraz musí obsahovat kombinaci alespoň 2 písmen a číslic.",
             "REQUIRED": "Je vyžadován vstup pro vyhledávání.",
-            "WHITESPACE": "Zadání hledání nemůže být pouze mezera."
+            "WHITESPACE": "Zadání hledání nemůže být pouze mezera.",
+            "OPERATORS": "Vyhledávací výraz nesmí začínat, končit nebo být tvořen pouze operátory."
         },
         "SORT": {
             "SORTING_OPTION": "Řadit podle",

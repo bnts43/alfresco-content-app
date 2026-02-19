@@ -1,6 +1,6 @@
 {
     "APP": {
-        "COPYRIGHT": "© 2005-2025 Hyland Software, Inc. og deres associerede selskaber. Alle rettigheder forbeholdes.",
+        "COPYRIGHT": "© 2005-2025 Hyland, Inc. og deres associerede selskaber. Alle rettigheder forbeholdes.",
         "TITLE": "Workspace",
         "ABOUT": {
             "VERSION": "Version:",
@@ -52,19 +52,13 @@
             "LOCATION": "Placering",
             "TELEPHONE": "Telefon",
             "MOBILE": "Mobil",
-            "LOGIN": "Log ind",
-            "USERNAME": "Brugernavn",
             "EMAIL": "E-mail",
-            "PASSWORD": "Adgangskode",
-            "OLD_PASSWORD": "Gammel adgangskode",
-            "FORGOT_PASSWORD": "Glemt adgangskode",
-            "NEW_PASSWORD": "Ny adgangskode",
-            "VERIFY_PASSWORD": "Bekræft adgangskode",
             "COMPANY_DETAILS": "Virksomhedsoplysninger",
             "NAME": "Navn",
             "ADDRESS": "Adresse",
             "POSTCODE": "Postnummer",
-            "INVALID_INPUT": "Ugyldig indtastning",
+            "INVALID_PHONE_FORMAT": "Indtast et gyldigt telefonnummer",
+            "INVALID_EMAIL_FORMAT": "Indtast en gyldig e-mailadresse",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "Gå til personlige filer"
         },
         "LOCKED_BY": "Låst af: ",
@@ -433,6 +427,10 @@
                         "FAIL": "{{ failed }} kunne ikke flyttes."
                     }
                 },
+                "NODE_CREATE": {
+                    "FILE_FROM_TEMPLATE_SUCCESS": "Filen {{ name }} blev oprettet fra skabelonen",
+                    "FOLDER_FROM_TEMPLATE_SUCCESS": "Mappen {{ name }} blev oprettet fra skabelonen"
+                },
                 "LIBRARY_DELETED": "Biblioteket er blevet slettet",
                 "LEFT_LIBRARY": "Du er ikke længere tilmeldt biblioteket",
                 "FAVORITE_NODE_ADDED": "Tilføjet {{ name }} til favoritter",
@@ -472,6 +470,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "Luk navigationsmenuen",
+            "COLLAPSE_NAVIGATION_ALT": "Skjul navigationsmenu-ikon",
             "OPTIONS_SETTINGS": "Valgmuligheder og indstillinger",
             "MY_PROFILE": "Min profil",
             "EXPAND_NAVIGATION": "Udvid navigationsmenu",
@@ -583,6 +582,7 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
+            "LABEL": "Bulk Handlinger",
             "TITLE": "Gruppehandlinger ({{ count }} dele)",
             "BULK_NOT_AVAILABLE": "Gruppehandlinger (ikke tilgængelig)",
             "BULK_NOT_AVAILABLE_TOOLTIP": "Gruppehandlinger kan ikke anvendes uden søgeresultater"
@@ -594,7 +594,8 @@
             "LIBRARIES": "Biblioteker",
             "MIN_LENGTH": "Din søgetekst skal være på mindst 2 tal/bogstaver.",
             "REQUIRED": "Søg input er påkrævet.",
-            "WHITESPACE": "Søg input kan ikke kun være mellemrum."
+            "WHITESPACE": "Søg input kan ikke kun være mellemrum.",
+            "OPERATORS": "øgeinput må ikke starte med, slutte med eller kun indeholde operatorer"
         },
         "SORT": {
             "SORTING_OPTION": "Sortér efter",

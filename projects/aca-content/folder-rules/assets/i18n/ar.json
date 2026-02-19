@@ -19,7 +19,13 @@
         "DESCRIPTION": "الوصف",
         "WHEN": "متي",
         "PERFORM_ACTIONS": "تنفيذ الإجراءات",
-        "OPTIONS": "خيارات أخرى"
+        "OPTIONS": "خيارات أخرى",
+        "FIELD": "الحقل",
+        "COMPARATOR": "المقارِن",
+        "VALUE": "القيمة",
+        "LOGIC_OPERATOR": "عامل منطقي",
+        "GROUP_CONDITIONS": "شروط المجموعة",
+        "CONDITIONS": "الشروط"
       },
       "PLACEHOLDER": {
         "NAME": "أدخل اسم للقاعدة",
@@ -31,7 +37,8 @@
       "ERROR": {
         "REQUIRED": "هذا الحقل مطلوب",
         "RULE_COMPOSITE_CONDITION_INVALID": "مجموعة شرطية واحدة أو أكثر فارغة",
-        "INSUFFICIENT_TRIGGERS_SELECTED": "مطلوب مشغل واحد على الأقل"
+        "INSUFFICIENT_TRIGGERS_SELECTED": "مطلوب مشغل واحد على الأقل",
+        "ACTION_REQUIRED": "حقل الإجراء مطلوب"
       },
       "TRIGGERS": {
         "INBOUND": "يتم إنشاء العناصر أو إدخالها إلى هذا المجلد",

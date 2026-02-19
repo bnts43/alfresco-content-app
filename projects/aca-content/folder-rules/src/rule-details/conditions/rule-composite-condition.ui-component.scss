@@ -4,6 +4,12 @@
   display: block;
   border-radius: 8px;
 
+  fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
   &.aca-childCompositeCondition {
     padding: 8px 16px;
     background-color: hsl(0deg, 0%, 100%);
@@ -21,12 +27,6 @@
     .aca-rule-composite-condition__form__row {
       display: flex;
       gap: 8px;
-
-      #{ms.$mat-form-field} {
-        #{ms.$mat-form-field-infix} {
-          padding-bottom: 4px;
-        }
-      }
 
       & > :nth-child(1) {
         width: 7em;

@@ -19,7 +19,13 @@
         "DESCRIPTION": "Description",
         "WHEN": "When",
         "PERFORM_ACTIONS": "Perform actions",
-        "OPTIONS": "Other options"
+        "OPTIONS": "Other options",
+        "FIELD": "Field",
+        "COMPARATOR": "Comparator",
+        "VALUE": "Value",
+        "LOGIC_OPERATOR": "Logic Operator",
+        "GROUP_CONDITIONS": "Group Conditions",
+        "CONDITIONS": "Conditions"
       },
       "PLACEHOLDER": {
         "NAME": "Enter rule name",
@@ -31,7 +37,8 @@
       "ERROR": {
         "REQUIRED": "This field is required",
         "RULE_COMPOSITE_CONDITION_INVALID": "One or more condition groups is empty",
-        "INSUFFICIENT_TRIGGERS_SELECTED": "At least one trigger is required"
+        "INSUFFICIENT_TRIGGERS_SELECTED": "At least one trigger is required",
+        "ACTION_REQUIRED": "Action field is required"
       },
       "TRIGGERS": {
         "INBOUND": "Items are created or enter this folder",

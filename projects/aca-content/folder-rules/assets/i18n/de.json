@@ -19,7 +19,13 @@
         "DESCRIPTION": "Beschreibung",
         "WHEN": "Wenn",
         "PERFORM_ACTIONS": "Aktionen durchführen",
-        "OPTIONS": "Andere Optionen"
+        "OPTIONS": "Andere Optionen",
+        "FIELD": "Feld",
+        "COMPARATOR": "Vergleicher",
+        "VALUE": "Wert",
+        "LOGIC_OPERATOR": "Logischer Operator",
+        "GROUP_CONDITIONS": "Gruppenbedingungen",
+        "CONDITIONS": "Bedingungen"
       },
       "PLACEHOLDER": {
         "NAME": "Regelname eingeben",
@@ -31,7 +37,8 @@
       "ERROR": {
         "REQUIRED": "Dieses Feld ist erforderlich",
         "RULE_COMPOSITE_CONDITION_INVALID": "Eine oder mehrere Konditionsgruppen sind leer",
-        "INSUFFICIENT_TRIGGERS_SELECTED": "Mindestens ein Auslöser ist erforderlich"
+        "INSUFFICIENT_TRIGGERS_SELECTED": "Mindestens ein Auslöser ist erforderlich",
+        "ACTION_REQUIRED": "Aktionsfeld ist erforderlich"
       },
       "TRIGGERS": {
         "INBOUND": "Elemente werden erstellt oder in diesen Ordner eingegeben",

@@ -1,4 +1,4 @@
-<ng-container [formGroup]="form">
+<fieldset [formGroup]="form" [attr.aria-labelledby]="ariaLabelledBy">
   <div class="aca-rule-options__option" *ngIf="!readOnly || isAsynchronousChecked">
     <mat-checkbox
       formControlName="isAsynchronous"
@@ -10,8 +10,6 @@
 
     <mat-form-field
       data-automation-id="rule-option-form-field-errorScript"
-      floatLabel="always"
-      appearance="fill"
       class="aca-rule-options__error-script-dropdown"
       [ngClass]="{ 'aca-hide-error-script-dropdown': hideErrorScriptDropdown }">
       <mat-label>{{ 'ACA_FOLDER_RULES.RULE_DETAILS.OPTIONS.ERROR_SCRIPT' | translate }}</mat-label>
@@ -26,7 +24,6 @@
             {{ option.label }}
           </mat-option>
       </mat-select>
-
     </mat-form-field>
   </div>
 
@@ -48,4 +45,4 @@
       {{ 'ACA_FOLDER_RULES.RULE_DETAILS.OPTIONS.DISABLE_RULE' | translate }}
     </mat-checkbox>
   </div>
-</ng-container>
+</fieldset>

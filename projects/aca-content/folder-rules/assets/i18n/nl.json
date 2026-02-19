@@ -19,7 +19,13 @@
         "DESCRIPTION": "Beschrijving",
         "WHEN": "Wanneer",
         "PERFORM_ACTIONS": "Acties uitvoeren",
-        "OPTIONS": "Andere opties"
+        "OPTIONS": "Andere opties",
+        "FIELD": "Veld",
+        "COMPARATOR": "Comparator",
+        "VALUE": "Waarde",
+        "LOGIC_OPERATOR": "Logische operator",
+        "GROUP_CONDITIONS": "Groepscondities",
+        "CONDITIONS": "Condities"
       },
       "PLACEHOLDER": {
         "NAME": "Regelnaam invoeren",
@@ -31,7 +37,8 @@
       "ERROR": {
         "REQUIRED": "Dit veld is vereist",
         "RULE_COMPOSITE_CONDITION_INVALID": "Eén of meer voorwaardengroepen zijn leeg",
-        "INSUFFICIENT_TRIGGERS_SELECTED": "Er is minstens één trigger vereist"
+        "INSUFFICIENT_TRIGGERS_SELECTED": "Er is minstens één trigger vereist",
+        "ACTION_REQUIRED": "Actie veld is vereist"
       },
       "TRIGGERS": {
         "INBOUND": "Items worden gemaakt of gaan naar deze map",

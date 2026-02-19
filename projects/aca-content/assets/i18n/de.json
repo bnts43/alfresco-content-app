@@ -1,6 +1,6 @@
 {
     "APP": {
-        "COPYRIGHT": "© 2005-2025 Hyland Software, Inc. und Tochtergesellschaften. Alle Rechte vorbehalten.",
+        "COPYRIGHT": "© 2005-2025 Hyland, Inc. und Tochtergesellschaften. Alle Rechte vorbehalten.",
         "TITLE": "Workspace",
         "ABOUT": {
             "VERSION": "Version:",
@@ -52,19 +52,13 @@
             "LOCATION": "Speicherort",
             "TELEPHONE": "Telefon",
             "MOBILE": "Mobil",
-            "LOGIN": "Anmeldung",
-            "USERNAME": "Benutzername",
             "EMAIL": "E-Mail",
-            "PASSWORD": "Passwort",
-            "OLD_PASSWORD": "Altes Passwort",
-            "FORGOT_PASSWORD": "Passwort vergessen",
-            "NEW_PASSWORD": "Neues Passwort",
-            "VERIFY_PASSWORD": "Passwort prüfen",
             "COMPANY_DETAILS": "Angaben zum Unternehmen",
             "NAME": "Name",
             "ADDRESS": "Anschrift",
             "POSTCODE": "Postleitzahl",
-            "INVALID_INPUT": "Ungültige Eingabe",
+            "INVALID_PHONE_FORMAT": "Bitte geben Sie eine gültige Telefonnummer ein",
+            "INVALID_EMAIL_FORMAT": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
             "GO_TO_PERSONAL_FILES_BUTTON_LABEL": "Zu persönlichen Dateien wechseln"
         },
         "LOCKED_BY": "Gesperrte von: ",
@@ -433,6 +427,10 @@
                         "FAIL": "{{ failed }} konnte nicht verschoben werden."
                     }
                 },
+                "NODE_CREATE": {
+                    "FILE_FROM_TEMPLATE_SUCCESS": "Datei {{ name }} aus Vorlage erstellt",
+                    "FOLDER_FROM_TEMPLATE_SUCCESS": "Ordner {{ name }} aus Vorlage erstellt"
+                },
                 "LIBRARY_DELETED": "Bibliothek gelöscht",
                 "LEFT_LIBRARY": "Sie haben die Bibliothek verlassen",
                 "FAVORITE_NODE_ADDED": "{{ name }} zu Favoriten hinzugefügt",
@@ -472,6 +470,7 @@
         },
         "TOOLTIPS": {
             "COLLAPSE_NAVIGATION": "Navigationsmenü reduzieren",
+            "COLLAPSE_NAVIGATION_ALT": "Navigationsmenü-Symbol einklappen",
             "OPTIONS_SETTINGS": "Optionen und Einstellungen",
             "MY_PROFILE": "Mein Profil",
             "EXPAND_NAVIGATION": "Navigationsmenü erweitern",
@@ -493,7 +492,7 @@
             "CREATED": "Erstellt",
             "MODIFIED": "Geändert",
             "DONE": "Fertig",
-            "ERROR": "Something went wrong, please close this dialog and try again"
+            "ERROR": "Etwas ist schiefgelaufen. Bitte schließen Sie diesen Dialog und versuchen Sie es erneut"
         }
     },
     "NODE_SELECTOR": {
@@ -583,6 +582,7 @@
     },
     "SEARCH": {
         "BULK_ACTIONS_DROPDOWN": {
+            "LABEL": "Massenaktionen",
             "TITLE": "Bulk-Aktionen ({{ count }} Elemente)",
             "BULK_NOT_AVAILABLE": "Bulk-Aktionen (Nicht verfügbar)",
             "BULK_NOT_AVAILABLE_TOOLTIP": "Bulk-Aktionen können nicht ohne Suchergebnisse verwendet werden"
@@ -594,7 +594,8 @@
             "LIBRARIES": "Bibliotheken",
             "MIN_LENGTH": "Die Sucheingabe muss mindestens zwei alphanumerische Zeichen umfassen.",
             "REQUIRED": "Sucheingabe ist erforderlich.",
-            "WHITESPACE": "Sucheingabe darf nicht nur Leerzeichen sein."
+            "WHITESPACE": "Sucheingabe darf nicht nur Leerzeichen sein.",
+            "OPERATORS": "Die Sucheingabe darf nicht mit Operatoren beginnen, mit Operatoren enden oder ausschließlich Operatoren enthalten."
         },
         "SORT": {
             "SORTING_OPTION": "Sortieren nach",

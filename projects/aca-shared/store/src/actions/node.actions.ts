@@ -39,7 +39,7 @@ export enum NodeActionTypes {
   Unshare = 'UNSHARE_NODES',
   Copy = 'COPY_NODES',
   Move = 'MOVE_NODES',
-  FolderInformation = 'FOLDER_INFORMATION',
+  NodeInformation = 'NODE_INFORMATION',
   ManagePermissions = 'MANAGE_PERMISSIONS',
   PrintFile = 'PRINT_FILE',
   ManageVersions = 'MANAGE_VERSIONS',
@@ -63,7 +63,8 @@ export class DeleteNodesAction implements Action {
 
   constructor(
     public payload: NodeEntry[] = [],
-    public allowUndo = true
+    public allowUndo = true,
+    public configuration?: ModalConfiguration
   ) {}
 }
 
@@ -76,13 +77,19 @@ export class UndoDeleteNodesAction implements Action {
 export class RestoreDeletedNodesAction implements Action {
   readonly type = NodeActionTypes.RestoreDeleted;
 
-  constructor(public payload: Array<NodeEntry>) {}
+  constructor(
+    public payload: Array<NodeEntry>,
+    public configuration?: ModalConfiguration
+  ) {}
 }
 
 export class PurgeDeletedNodesAction implements Action {
   readonly type = NodeActionTypes.PurgeDeleted;
 
-  constructor(public payload: Array<NodeEntry>) {}
+  constructor(
+    public payload: Array<NodeEntry>,
+    public configuration?: ModalConfiguration
+  ) {}
 }
 
 export class DownloadNodesAction implements Action {
@@ -183,13 +190,19 @@ export class UnlockWriteAction implements Action {
 export class AddFavoriteAction implements Action {
   readonly type = NodeActionTypes.AddFavorite;
 
-  constructor(public payload: Array<NodeEntry>) {}
+  constructor(
+    public payload: Array<NodeEntry>,
+    public configuration?: ModalConfiguration
+  ) {}
 }
 
 export class RemoveFavoriteAction implements Action {
   readonly type = NodeActionTypes.RemoveFavorite;
 
-  constructor(public payload: Array<NodeEntry>) {}
+  constructor(
+    public payload: Array<NodeEntry>,
+    public configuration?: ModalConfiguration
+  ) {}
 }
 export class ManageAspectsAction implements Action {
   readonly type = NodeActionTypes.ChangeAspects;
@@ -206,8 +219,8 @@ export class ManageRulesAction implements Action {
   constructor(public payload: NodeEntry) {}
 }
 
-export class FolderInformationAction implements Action {
-  readonly type = NodeActionTypes.FolderInformation;
+export class NodeInformationAction implements Action {
+  readonly type = NodeActionTypes.NodeInformation;
 
   constructor(public payload: NodeEntry) {}
 }

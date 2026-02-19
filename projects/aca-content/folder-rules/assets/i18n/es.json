@@ -19,7 +19,13 @@
         "DESCRIPTION": "Descripción",
         "WHEN": "Cuando",
         "PERFORM_ACTIONS": "Realizar acciones",
-        "OPTIONS": "Otras opciones"
+        "OPTIONS": "Otras opciones",
+        "FIELD": "Campo",
+        "COMPARATOR": "Comparador",
+        "VALUE": "Valor",
+        "LOGIC_OPERATOR": "Operador lógico",
+        "GROUP_CONDITIONS": "Condiciones de grupo",
+        "CONDITIONS": "Condiciones"
       },
       "PLACEHOLDER": {
         "NAME": "Introducir un nombre para la regla",
@@ -31,7 +37,8 @@
       "ERROR": {
         "REQUIRED": "Este campo es obligatorio",
         "RULE_COMPOSITE_CONDITION_INVALID": "Uno o más grupos de condiciones están vacíos",
-        "INSUFFICIENT_TRIGGERS_SELECTED": "Se requiere al menos un activador"
+        "INSUFFICIENT_TRIGGERS_SELECTED": "Se requiere al menos un activador",
+        "ACTION_REQUIRED": "El campo de acción es obligatorio"
       },
       "TRIGGERS": {
         "INBOUND": "Los elementos se crean o ingresan a esta carpeta",

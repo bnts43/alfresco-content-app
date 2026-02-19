@@ -50,6 +50,7 @@ import { CONTENT_LAYOUT_ROUTES, ContentServiceExtensionModule } from '@alfresco/
 import { SHELL_APP_SERVICE, SHELL_AUTH_TOKEN, provideShellRoutes } from '@alfresco/adf-core/shell';
 import { APP_ROUTES } from './app.routes';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeDe);
@@ -92,8 +93,13 @@ export const AppConfig: ApplicationConfig = {
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {
-        duration: 10000
+        duration: 10000,
+        politeness: 'polite'
       }
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline', floatLabel: 'always', subscriptSizing: 'dynamic' }
     }
   ]
 };

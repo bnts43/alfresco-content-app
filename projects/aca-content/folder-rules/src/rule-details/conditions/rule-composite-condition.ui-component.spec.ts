@@ -22,7 +22,7 @@
  * from Hyland Software. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RuleCompositeConditionUiComponent } from './rule-composite-condition.ui-component';
 import { NoopTranslateModule, UnitTestingUtils } from '@alfresco/adf-core';
 import { DebugElement } from '@angular/core';
@@ -33,6 +33,7 @@ import {
 } from '../../mock/conditions.mock';
 import { RuleSimpleConditionUiComponent } from './rule-simple-condition.ui-component';
 import { AlfrescoApiService, AlfrescoApiServiceMock } from '@alfresco/adf-content-services';
+import { FocusTrapFactory } from '@angular/cdk/a11y';
 
 describe('RuleCompositeConditionUiComponent', () => {
   let fixture: ComponentFixture<RuleCompositeConditionUiComponent>;
@@ -40,6 +41,7 @@ describe('RuleCompositeConditionUiComponent', () => {
 
   const getSimpleConditionComponents = (): DebugElement[] => unitTestingUtils.getAllByCSS(`.aca-rule-simple-condition`);
   const getCompositeConditionComponents = (): DebugElement[] => unitTestingUtils.getAllByCSS(`.aca-rule-composite-condition`);
+  const getLabelWithConditionsElementInnerText = (): string => unitTestingUtils.getInnerTextByDataAutomationId('label-with-conditions');
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -130,5 +132,71 @@ describe('RuleCompositeConditionUiComponent', () => {
     fixture.detectChanges();
 
     expect(getCompositeConditionComponents().length).toBe(1);
+  });
+
+  describe('When hasNoConditions is false', () => {
+    beforeEach(() => {
+      fixture.componentInstance.writeValue(compositeConditionWithThreeConditionMock);
+    });
+
+    it('should display "CONDITIONS" label when childCondition is false', () => {
+      fixture.componentInstance.childCondition = false;
+      fixture.detectChanges();
+
+      expect(getLabelWithConditionsElementInnerText()).toBe('ACA_FOLDER_RULES.RULE_DETAILS.LABEL.CONDITIONS');
+    });
+
+    it('should display "GROUP_CONDITIONS" label when childCondition is true', () => {
+      fixture.componentInstance.childCondition = true;
+      fixture.detectChanges();
+
+      expect(getLabelWithConditionsElementInnerText()).toBe('ACA_FOLDER_RULES.RULE_DETAILS.LABEL.GROUP_CONDITIONS');
+    });
+
+    it('should set correct id attribute when childCondition is false', () => {
+      fixture.componentInstance.childCondition = false;
+      fixture.detectChanges();
+
+      expect(unitTestingUtils.getAllByCSS('[conditions-group-label-main]')).toBeTruthy();
+    });
+
+    it('should set correct id attribute when childCondition is true', () => {
+      fixture.componentInstance.childCondition = true;
+      fixture.detectChanges();
+
+      expect(unitTestingUtils.getAllByCSS('[conditions-group-label-nested]')).toBeTruthy();
+    });
+  });
+
+  describe('Focus management', () => {
+    it('should focus the newly added simple condition', fakeAsync(() => {
+      fixture.detectChanges();
+      const focusTrapFactory = TestBed.inject(FocusTrapFactory);
+      const focusTrapSpy = jasmine.createSpyObj('FocusTrap', ['focusFirstTabbableElement', 'destroy']);
+      spyOn(focusTrapFactory, 'create').and.returnValue(focusTrapSpy);
+
+      unitTestingUtils.clickByDataAutomationId('add-condition-button');
+      fixture.detectChanges();
+      tick();
+
+      expect(focusTrapFactory.create).toHaveBeenCalled();
+      expect(focusTrapSpy.focusFirstTabbableElement).toHaveBeenCalled();
+      expect(focusTrapSpy.destroy).toHaveBeenCalled();
+    }));
+
+    it('should focus the newly added composite condition', fakeAsync(() => {
+      fixture.detectChanges();
+      const focusTrapFactory = TestBed.inject(FocusTrapFactory);
+      const focusTrapSpy = jasmine.createSpyObj('FocusTrap', ['focusFirstTabbableElement', 'destroy']);
+      spyOn(focusTrapFactory, 'create').and.returnValue(focusTrapSpy);
+
+      unitTestingUtils.clickByDataAutomationId('add-group-button');
+      fixture.detectChanges();
+      tick();
+
+      expect(focusTrapFactory.create).toHaveBeenCalled();
+      expect(focusTrapSpy.focusFirstTabbableElement).toHaveBeenCalled();
+      expect(focusTrapSpy.destroy).toHaveBeenCalled();
+    }));
   });
 });
